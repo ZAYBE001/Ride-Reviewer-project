@@ -24,36 +24,70 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    
     <form onSubmit={handleSubmit}>
-       
       <div>
-        <label>Brand:</label>
-        <input type="text" name="brand" value={searchCriteria.brand} onChange={handleChange} />
+        <label htmlFor="brand">Brand:</label>
+        <input
+          type="text"
+          id="brand"
+          name="brand"
+          value={searchCriteria.brand}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Model:</label>
-        <input type="text" name="model" value={searchCriteria.model} onChange={handleChange} />
+        <label htmlFor="model">Model:</label>
+        <input
+          type="text"
+          id="model"
+          name="model"
+          value={searchCriteria.model}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Year:</label>
-        <input type="text" name="year" value={searchCriteria.year} onChange={handleChange} />
+        <label htmlFor="year">Year:</label>
+        <input
+          type="text"
+          id="year"
+          name="year"
+          value={searchCriteria.year}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Price Range:</label>
-        <input type="text" name="priceRange" value={searchCriteria.priceRange} onChange={handleChange} />
+        <label htmlFor="priceRange">Price Range:</label>
+        <input
+          type="text"
+          id="priceRange"
+          name="priceRange"
+          value={searchCriteria.priceRange}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Fuel Type:</label>
-        <input type="text" name="fuelType" value={searchCriteria.fuelType} onChange={handleChange} />
+        <label htmlFor="fuelType">Fuel Type:</label>
+        <input
+          type="text"
+          id="fuelType"
+          name="fuelType"
+          value={searchCriteria.fuelType}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Transmission Type:</label>
-        <input type="text" name="transmissionType" value={searchCriteria.transmissionType} onChange={handleChange} />
+        <label htmlFor="transmissionType">Transmission Type:</label>
+        <input
+          type="text"
+          id="transmissionType"
+          name="transmissionType"
+          value={searchCriteria.transmissionType}
+          onChange={handleChange}
+        />
       </div>
       <button type="submit">Search</button>
     </form>
-    );
+  );
 };
 
 export default SearchForm;

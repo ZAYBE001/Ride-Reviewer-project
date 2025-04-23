@@ -26,24 +26,52 @@ const ReviewForm = ({ onSubmit }) => {
     <form onSubmit={handleSubmit}>
       <h2>Leave a Review</h2>
       <div>
-        <label>Pros:</label>
-        <textarea name="pros" value={review.pros} onChange={handleChange} />
+        <label htmlFor="pros">Pros:</label>
+        <textarea
+          id="pros"
+          name="pros"
+          value={review.pros}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Cons:</label>
-        <textarea name="cons" value={review.cons} onChange={handleChange} />
+        <label htmlFor="cons">Cons:</label>
+        <textarea
+          id="cons"
+          name="cons"
+          value={review.cons}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Performance:</label>
-        <input type="number" name="performance" value={review.performance} onChange={handleChange} />
+        <label htmlFor="performance">Performance:</label>
+        <input
+          id="performance"
+          type="number"
+          name="performance"
+          value={review.performance}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Comfort:</label>
-        <input type="number" name="comfort" value={review.comfort} onChange={handleChange} />
+        <label htmlFor="comfort">Comfort:</label>
+        <input
+          id="comfort"
+          type="number"
+          name="comfort"
+          value={review.comfort}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label>Reliability:</label>
-        <input type="number" name="reliability" value={review.reliability} onChange={handleChange} />
+        <label htmlFor="reliability">Reliability:</label>
+        <input
+          id="reliability"
+          type="number"
+          name="reliability"
+          value={review.reliability}
+          onChange={handleChange}
+        />
       </div>
       <button type="submit">Submit Review</button>
     </form>
