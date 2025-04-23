@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Login from './Login.jsx';
+import ReviewForm from './ReviewForm.jsx';
+import ReviewList from './ReviewList.jsx';
+import SearchForm from './SearchForm.jsx';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+
+
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  //const [recommendations, setRecommendations] = useState([]);
+  //const [priceTrends, setPriceTrends] = useState([]);
+
+  const handleLogin = (userData) => {
+    
+    setUser(userData);
+  };
+
+  const handleReviewSubmit = (review) => {
+    
+    setReviews([...reviews, { ...review, id: Date.now(), helpfulVotes: 0 }]);
+  };
+
+  const handleVote = (reviewId) => {
+    
+    setReviews(reviews.map(review => 
+      review.id === reviewId ? { ...review, helpfulVotes: review.helpfulVotes + 1 } : review
+    ));
+  };
+
+  const handleSearch = (criteria) => {
+    
+    console.log('Search criteria:', criteria);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>Vehicle Review App</h1>
+      {!user ? (
+        <Login onLogin={handleLogin} />
+      ) : (
+        <div>
+          <ReviewForm onSubmit={handleReviewSubmit} />
+          <ReviewList reviews={reviews} onVote={handleVote} />
+          <SearchForm onSearch={handleSearch} />
+         
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;
