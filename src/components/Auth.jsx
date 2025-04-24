@@ -35,11 +35,28 @@ const Auth = ({ onLogin, onSignup }) => {
     if (loginForm.password.length < 8) {
       newErrors.password = "password must be atleast 8 characters";
     }
+    // const errors = validateLogin();
+    // if (Object.keys(errors).length > 0) {
+    //   setErrors(errors); // show errors in the UI
+    // } else {
+    //   onLogin(loginForm); // proceed to login
+
+    // }
     const errors = validateLogin();
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors); // show errors in the UI
+    if (Object.keys(errors).length === 0) {
     } else {
-      onLogin(loginForm); // proceed to login
+      setErrors(errors);
+      return;
     }
   };
+
+  const handleLoginSubmit = (e) => e.preventDefault();
+  if (validateLogin()) {
+    setLogin(true);
+    onLogin(loginForm)
+      .catch((err) => {
+        setErrors({ form: err.message });
+      })
+      .finally(() => setLoading(false));
+  }
 };
