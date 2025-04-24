@@ -59,4 +59,16 @@ const Auth = ({ onLogin, onSignup }) => {
       })
       .finally(() => setLoading(false));
   }
+  const handleloginChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "username") {
+      const onlyLetters = /^[A-Za-z]*$/;
+      if (!onlyLetters.test(value)) return;
+    }
+    setLogin((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
 };
