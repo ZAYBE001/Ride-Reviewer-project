@@ -10,4 +10,15 @@ const Auth = ({ onLogin, onSignup }) => {
     email: "",
     password: "",
   });
+
+  const [signupForm, setSignupForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthDate: "",
+    password: "",
+    confirmPassword: "",
+    consent: false,
+    terms: false,
+  });
 };
