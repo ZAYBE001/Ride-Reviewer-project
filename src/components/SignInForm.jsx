@@ -1,10 +1,8 @@
+// components/SignInForm.js
 import React, { useState } from 'react';
 
-const Login = ({ onLogin }) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
+const SignInForm = ({ onSignIn }) => {
+  const [formData, setFormData] = useState({ email: '', username: '', password: '' });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -13,15 +11,27 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(formData);
+    console.log('Signing up with:', formData);
+    onSignIn(formData);  // Simulates successful sign up
   };
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2>Log In</h2>
+      <h2 >Sign Up</h2>
 
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email" >Email</label>
+        <input
+          id="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="username" >Username</label>
         <input
           id="username"
           type="text"
@@ -32,7 +42,7 @@ const Login = ({ onLogin }) => {
       </div>
 
       <div>
-        <label htmlFor="password" >Password</label>
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
@@ -43,10 +53,10 @@ const Login = ({ onLogin }) => {
       </div>
 
       <button type="submit" >
-        Log In
+      Sign Up
       </button>
     </form>
   );
 };
 
-export default Login;
+export default SignInForm;

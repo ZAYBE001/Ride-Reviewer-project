@@ -7,6 +7,7 @@ const ReviewList = ({ reviews, onVote }) => {
       <h2>Reviews</h2>
       <ul>
         {reviews.map((review) => (
+          
           <li key={review.id} className="review-item">
             <div>
             <h3>{review.username}</h3>

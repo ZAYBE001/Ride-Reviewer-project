@@ -4,6 +4,7 @@ import SearchForm from './components/SearchForm';
 import ReviewList from './components/ReviewList';
 import ReviewForm from './components/ReviewForm';
 import Login from './components/Login';
+import SignInForm from './components/SignInForm'
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -32,6 +33,7 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);  // Manage login state
   const [cars, setCars] = useState([]);  // State for car images and data
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
     // Fetch the car data from the db.json file
@@ -79,9 +81,29 @@ const App = () => {
         </button>
 
         {!isLoggedIn ? (
-          // Display login form if the user is not logged in
-          <Login onLogin={handleLogin} />
-        ) : (
+  isRegistering ? (
+    <>
+      <SignInForm onSignIn={handleLogin} />
+      <p className="text-center mt-4">
+        Already have an account?{" "}
+        <button onClick={() => setIsRegistering(false)} className="text-blue-500 underline">
+          Log In
+        </button>
+      </p>
+    </>
+  ) : (
+    <>
+      <Login onLogin={handleLogin} />
+      <p className="text-center mt-4">
+        Don’t have an account?{" "}
+        <button onClick={() => setIsRegistering(true)} className="text-blue-500 underline">
+          Sign Up
+        </button>
+      </p>
+    </>
+     )
+      ) : (
+
           <>
             <SearchForm onSearch={handleSearch} />
 
