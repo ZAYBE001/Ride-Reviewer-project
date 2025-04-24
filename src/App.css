@@ -1,7 +1,12 @@
 body{background-color:antiquewhite;}
-div{border-radius:10px;}
+div{border-radius:10px;
+text-align: center;
+padding: 10px;}
 button{border-radius:5px;}
 button:hover{background-color:lightblue;}
 button:active{background-color:lightgreen;}
 input{border-radius:3px;}
 input:focus{background-color:lightyellow;}
+.login{border-radius: 5px;
+padding: auto;
+text-align: center;}
