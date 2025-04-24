@@ -1,0 +1,28 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "url": "https://example.com/car1.jpg",
+      "title": "Tesla Model S",
+      "comment": "Smooth and futuristic ride"
+    },
+    {
+      "id": 2,
+      "url": "https://example.com/car2.jpg",
+      "title": "BMW M3",
+      "comment": "Classic performance and luxury"
+    }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@example.com",
+      "birthDate": "1990-01",
+      "password": "Password123",
+      "createdAt": "2023-10-01T12:00:00Z"
+    }
+  ]
+}
