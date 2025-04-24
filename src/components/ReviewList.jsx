@@ -1,19 +1,22 @@
 import React from 'react';
+import '../App.css'; // Import the CSS file
 
 const ReviewList = ({ reviews, onVote }) => {
   return (
-    <div>
-    <h2>Reviews</h2>
+    <div className="review-list">
+      <h2>Reviews</h2>
       <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
+        {reviews.map((review) => (
+          <li key={review.id} className="review-item">
             <h3>{review.username}</h3>
             <p>Pros: {review.pros}</p>
             <p>Cons: {review.cons}</p>
             <p>Performance: {review.performance}</p>
             <p>Comfort: {review.comfort}</p>
             <p>Reliability: {review.reliability}</p>
-            <button onClick={() => onVote(review.id)}>Upvote</button>
+            <button onClick={() => onVote(review.id)} className="vote-button">
+              Upvote
+            </button>
             <p>Helpful Votes: {review.helpfulVotes}</p>
           </li>
         ))}
@@ -23,3 +26,4 @@ const ReviewList = ({ reviews, onVote }) => {
 };
 
 export default ReviewList;
+

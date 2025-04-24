@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import '../App.css'; // Import the CSS file
 
 const ReviewForm = ({ onSubmit }) => {
   const [review, setReview] = useState({
+    username: '',
     pros: '',
     cons: '',
     performance: 0,
@@ -23,9 +25,20 @@ const ReviewForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="review-form" onSubmit={handleSubmit}>
       <h2>Leave a Review</h2>
-      <div>
+      <div className="form-group">
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={review.username}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
         <label htmlFor="pros">Pros:</label>
         <textarea
           id="pros"
@@ -34,7 +47,8 @@ const ReviewForm = ({ onSubmit }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="cons">Cons:</label>
         <textarea
           id="cons"
@@ -43,39 +57,44 @@ const ReviewForm = ({ onSubmit }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="performance">Performance:</label>
         <input
-          id="performance"
           type="number"
+          id="performance"
           name="performance"
           value={review.performance}
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="comfort">Comfort:</label>
         <input
-          id="comfort"
           type="number"
+          id="comfort"
           name="comfort"
           value={review.comfort}
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="reliability">Reliability:</label>
         <input
-          id="reliability"
           type="number"
+          id="reliability"
           name="reliability"
           value={review.reliability}
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Submit Review</button>
+
+      <button type="submit" className="submit-button">Submit Review</button>
     </form>
   );
 };
 
 export default ReviewForm;
+

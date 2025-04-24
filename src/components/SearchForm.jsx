@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../App.css'; // Import the CSS file
 
 const SearchForm = ({ onSearch }) => {
   const [searchCriteria, setSearchCriteria] = useState({
@@ -24,8 +25,9 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className="search-form" onSubmit={handleSubmit}>
+      <h2>Search Cars</h2>
+      <div className="form-group">
         <label htmlFor="brand">Brand:</label>
         <input
           type="text"
@@ -35,7 +37,8 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="model">Model:</label>
         <input
           type="text"
@@ -45,7 +48,8 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="year">Year:</label>
         <input
           type="text"
@@ -55,7 +59,8 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="priceRange">Price Range:</label>
         <input
           type="text"
@@ -65,7 +70,8 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="fuelType">Fuel Type:</label>
         <input
           type="text"
@@ -75,7 +81,8 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label htmlFor="transmissionType">Transmission Type:</label>
         <input
           type="text"
@@ -85,9 +92,11 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Submit</button>
+
+      <button type="submit" className="submit-button">Search</button>
     </form>
   );
 };
 
 export default SearchForm;
+
