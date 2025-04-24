@@ -1,5 +1,7 @@
 //this Auth will handle both login and sign up
 import React, { useState } from "react";
+import validator from "validator";
+import "../App.css";
 
 const Auth = ({ onLogin, onSignup }) => {
   const [islogin, setIsLogin] = useState(true);
