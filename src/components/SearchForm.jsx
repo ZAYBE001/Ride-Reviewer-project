@@ -85,7 +85,7 @@ const SearchForm = ({ onSearch }) => {
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Search</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

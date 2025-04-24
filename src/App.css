@@ -1,1 +1,7 @@
-body{background-color: rgb(179, 226, 9);}
+body{background-color:antiquewhite;}
+div{border-radius:10px;}
+button{border-radius:5px;}
+button:hover{background-color:lightblue;}
+button:active{background-color:lightgreen;}
+input{border-radius:3px;}
+input:focus{background-color:lightyellow;}

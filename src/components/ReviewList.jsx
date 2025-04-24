@@ -3,7 +3,7 @@ import React from 'react';
 const ReviewList = ({ reviews, onVote }) => {
   return (
     <div>
-    
+    <h2>Reviews</h2>
       <ul>
         {reviews.map(review => (
           <li key={review.id}>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Login from './Login.jsx';
-import ReviewForm from './ReviewForm.jsx';
-import ReviewList from './ReviewList.jsx';
-import SearchForm from './SearchForm.jsx';
-import './App.css';
+import Login from './components/Login.jsx';
+import ReviewForm from './components/ReviewForm';
+import ReviewList from './components/ReviewList';
+import SearchForm from './components/SearchForm';
+import './App.css'; 
 
 
 

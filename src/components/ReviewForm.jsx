@@ -6,7 +6,8 @@ const ReviewForm = ({ onSubmit }) => {
     cons: '',
     performance: 0,
     comfort: 0,
-    reliability: 0
+    reliability: 0,
+    rating: 0
   });
 
   const handleChange = (e) => {
@@ -72,6 +73,48 @@ const ReviewForm = ({ onSubmit }) => {
           value={review.reliability}
           onChange={handleChange}
         />
+      </div>
+      <div className="rating">
+        <input
+          value="5"
+          name="rating"
+          id="star5"
+          type="radio"
+          onChange={handleChange}
+        />
+        <label htmlFor="star5">5 Stars</label>
+        <input
+          value="4"
+          name="rating"
+          id="star4"
+          type="radio"
+          onChange={handleChange}
+        />
+        <label htmlFor="star4">4 Stars</label>
+        <input
+          value="3"
+          name="rating"
+          id="star3"
+          type="radio"
+          onChange={handleChange}
+        />
+        <label htmlFor="star3">3 Stars</label>
+        <input
+          value="2"
+          name="rating"
+          id="star2"
+          type="radio"
+          onChange={handleChange}
+        />
+        <label htmlFor="star2">2 Stars</label>
+        <input
+          value="1"
+          name="rating"
+          id="star1"
+          type="radio"
+          onChange={handleChange}
+        />
+        <label htmlFor="star1">1 Star</label>
       </div>
       <button type="submit">Submit Review</button>
     </form>
