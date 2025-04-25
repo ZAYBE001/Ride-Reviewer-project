@@ -88,12 +88,30 @@ const SignInForm = ({ onSignIn }) => {
       newErrors.consent = "You must consent to data processing";
       isValid = false;
     }
+    setErrors(newErrors);
+    return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signing up with:", formData);
-    onSignIn(formData);
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setErrors((prev) => ({ ...prev, general: "" }));
+
+    try {
+      // Remove confirmPassword from the data we send to the server
+      const { confirmPassword, consent, ...signUpData } = formData;
+      await onSignUp(signUpData);
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        general: error.message || "Sign up failed. Please try again.",
+      }));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
