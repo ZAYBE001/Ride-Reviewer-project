@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, switchToSignup }) => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    userName: "",
+    password: "",
+    general: "",
   });
 
   const handleChange = (e) => {
@@ -32,7 +37,7 @@ const Login = ({ onLogin }) => {
       </div>
 
       <div>
-        <label htmlFor="password" >Password</label>
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
@@ -42,9 +47,7 @@ const Login = ({ onLogin }) => {
         />
       </div>
 
-      <button type="submit" >
-        Log In
-      </button>
+      <button type="submit">Log In</button>
     </form>
   );
 };
