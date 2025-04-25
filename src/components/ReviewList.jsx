@@ -1,27 +1,49 @@
-import React from 'react';
-import '../App.css'; // Import the CSS file
+import React from "react";
+import "../App.css"; // Import the CSS file
 
 const ReviewList = ({ reviews, onVote }) => {
   return (
     <div className="review-list">
-      <h2>Reviews</h2>
       <ul>
         {reviews.map((review) => (
-          
           <li key={review.id} className="review-item">
-            <div>
-            <h3>{review.username}</h3>
-            <p>Pros: {review.pros}</p>
-            <p>Cons: {review.cons}</p>
-            <p>Performance: {review.performance}</p>
-            <p>Comfort: {review.comfort}</p>
-            <p>Reliability: {review.reliability}</p>
-            <button onClick={() => onVote(review.id)} className="vote-button">
-              Upvote
-            </button>
-            <p>Helpful Votes: {review.helpfulVotes}</p>
+            <div className="review-box">
+              <h3>{review.username}</h3>
+              <p>
+                <strong>Pros:</strong> {review.pros}
+              </p>
+              <p>
+                <strong>Cons:</strong> {review.cons}
+              </p>
+              <p>
+                <strong>Year:</strong> {review.year}
+              </p>
+              <p>
+                <strong>Price Range:</strong> {review.priceRange}
+              </p>
+              <p>
+                <strong>Fuel Type:</strong> {review.fuelType}
+              </p>
+              <p>
+                <strong>Transmission:</strong> {review.transmissionType}
+              </p>
+              <div className="ratings">
+                <p>
+                  <strong>Performance:</strong> {review.performance}
+                </p>
+                <p>
+                  <strong>Comfort:</strong> {review.comfort}
+                </p>
+                <p>
+                  <strong>Reliability:</strong> {review.reliability}
+                </p>
+              </div>
+              <button onClick={() => onVote(review.id)} className="vote-button">
+                Upvote
+              </button>
+              <p>Helpful Votes: {review.helpfulVotes}</p>
             </div>
-          </li>     
+          </li>
         ))}
       </ul>
     </div>
@@ -29,4 +51,3 @@ const ReviewList = ({ reviews, onVote }) => {
 };
 
 export default ReviewList;
-
