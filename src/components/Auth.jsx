@@ -69,6 +69,9 @@ const Auth = ({ onLogin, onSignup }) => {
   };
   const validateSignup = () => {
     const newErrors = {};
+    if (!signupForm.firstName.trim()) {
+      newErrors.firstName = "firstName is required";
+    }
   };
 };
 
