@@ -22,10 +22,16 @@ const SignInForm = ({ onSignIn }) => {
     consent: "",
     general: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    const { id, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: type === "checkedbox" ? checked : value,
+    }));
+    //clear errors when the user types
+    setErrors((prev) => ({ ...prev, [id]: "" }));
   };
 
   const handleSubmit = (e) => {
