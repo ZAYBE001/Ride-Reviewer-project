@@ -21,6 +21,18 @@ const App = () => {
       }, 1000);
     });
   };
+  const handleSignup = async (userData) => {
+    //simulate an APi call
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        //check if the email already exists
+        if (user.some((u) => u.email === userData.eamil)) {
+          reject(new Error("The Email is already regitered"));
+          return;
+        }
+      });
+    });
+  };
 };
 
 export default App;
