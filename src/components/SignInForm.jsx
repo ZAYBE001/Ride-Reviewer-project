@@ -1,8 +1,12 @@
 // components/SignInForm.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const SignInForm = ({ onSignIn }) => {
-  const [formData, setFormData] = useState({ email: '', username: '', password: '' });
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -11,16 +15,16 @@ const SignInForm = ({ onSignIn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Signing up with:', formData);
-    onSignIn(formData);  // Simulates successful sign up
+    console.log("Signing up with:", formData);
+    onSignIn(formData); // Simulates successful sign up
   };
 
   return (
-    <form onSubmit={handleSubmit} className="auth-form">
-      <h2 >Sign Up</h2>
+    <form onSubmit={handleSubmit} className="auth-section">
+      <h2>Sign Up</h2>
 
       <div>
-        <label htmlFor="email" >Email</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
@@ -31,7 +35,7 @@ const SignInForm = ({ onSignIn }) => {
       </div>
 
       <div>
-        <label htmlFor="username" >Username</label>
+        <label htmlFor="username">Username</label>
         <input
           id="username"
           type="text"
@@ -52,8 +56,8 @@ const SignInForm = ({ onSignIn }) => {
         />
       </div>
 
-      <button type="submit" >
-      Sign Up
+      <button type="submit" className="btn btn-primary">
+        Sign Up
       </button>
     </form>
   );
