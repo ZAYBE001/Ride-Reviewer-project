@@ -67,6 +67,9 @@ const Auth = ({ onLogin, onSignup }) => {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
+  const validateSignup = () => {
+    const newErrors = {};
+  };
 };
 
 export default Auth;
