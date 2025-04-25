@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css'; // Import the CSS file
 
-const ReviewList = ({ reviews, onVote }) => {
+const ReviewList = ({ reviews, onVote, onDelete}) => {
   return (
     <div className="review-list">
       <h2>Reviews</h2>
@@ -9,6 +9,7 @@ const ReviewList = ({ reviews, onVote }) => {
         {reviews.map((review) => (
           
           <li key={review.id} className="review-item">
+            
             <div>
             <h3>{review.username}</h3>
             <p>Pros: {review.pros}</p>
@@ -20,6 +21,7 @@ const ReviewList = ({ reviews, onVote }) => {
               Upvote
             </button>
             <p>Helpful Votes: {review.helpfulVotes}</p>
+            <button onClick={() => onDelete(review.id)}>Delete</button>
             </div>
           </li>     
         ))}

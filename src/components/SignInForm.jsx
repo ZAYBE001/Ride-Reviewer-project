@@ -1,4 +1,3 @@
-// components/SignInForm.js
 import React, { useState } from 'react';
 
 const SignInForm = ({ onSignIn }) => {
@@ -12,12 +11,12 @@ const SignInForm = ({ onSignIn }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Signing up with:', formData);
-    onSignIn(formData);  // Simulates successful sign up
+    onSignIn(formData);  
   };
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2 >Sign Up</h2>
+      <h2 >Sign In</h2>
 
       <div>
         <label htmlFor="email" >Email</label>
