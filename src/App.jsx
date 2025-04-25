@@ -3,7 +3,7 @@ import "./App.css";
 import Auth from "./comonents/Auth";
 
 const App = () => {
-  const [isloggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = async (credentials) => {
     // simulate an Api call
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const App = () => {
           return;
         }
         //create a new user obj
-        const mewUser = {
+        const newUser = {
           id: Date.now(),
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -40,9 +40,26 @@ const App = () => {
           password: userData.password,
           createdAt: new Date().toISOString(),
         };
-      });
+        SetUssers((prev) => [...prev, newUser]);
+        resolve();
+      }, 1500);
     });
   };
+  return (
+    <div className={`app ${darkMode ? "dark-mode" : ""}`}>
+      <div className="container">
+        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+          Toggle Theme
+        </button>
+
+        {!isLoggedIn ? (
+          <auth onLogin={handleLogin} onSignup={handleSignup} />
+        ) : (
+          <>{/*youy esisting logged in content*/}</>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default App;
