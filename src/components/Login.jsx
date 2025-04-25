@@ -6,7 +6,7 @@ const Login = ({ onLogin, switchToSignup }) => {
     password: "",
   });
   const [errors, setErrors] = useState({
-    userName: "",
+    username: "",
     password: "",
     general: "",
   });
