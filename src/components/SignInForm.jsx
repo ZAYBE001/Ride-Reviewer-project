@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = ({ onSignIn }) => {
-  const [formData, setFormData] = useState({ email: '', username: '', password: '' });
+  const [formData, setFormData] = useState({
+    firstName: "",
+    LastName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    consent: false,
+  });
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    birthDate: "",
+    consent: "",
+    general: "",
+  });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -10,16 +30,16 @@ const SignInForm = ({ onSignIn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Signing up with:', formData);
-    onSignIn(formData);  
+    console.log("Signing up with:", formData);
+    onSignIn(formData);
   };
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2 >Sign In</h2>
+      <h2>Sign In</h2>
 
       <div>
-        <label htmlFor="email" >Email</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
@@ -30,7 +50,7 @@ const SignInForm = ({ onSignIn }) => {
       </div>
 
       <div>
-        <label htmlFor="username" >Username</label>
+        <label htmlFor="username">Username</label>
         <input
           id="username"
           type="text"
@@ -51,9 +71,7 @@ const SignInForm = ({ onSignIn }) => {
         />
       </div>
 
-      <button type="submit" >
-      Sign Up
-      </button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 };

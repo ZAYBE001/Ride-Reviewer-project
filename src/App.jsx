@@ -45,6 +45,7 @@ const App = () => {
     if (!user) {
       throw new Error("Invalid username or password");
     }
+    setIsLoggedIn(true);
   };
 
   const [searchResults, setSearchResults] = useState([]);
