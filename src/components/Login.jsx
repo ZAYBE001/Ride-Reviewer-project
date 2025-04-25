@@ -44,7 +44,11 @@ const Login = ({ onLogin, switchToSignup }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(formData);
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setErrors((prev) => ({ ...prev, general: "" }));
   };
 
   return (
