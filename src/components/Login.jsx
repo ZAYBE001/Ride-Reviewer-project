@@ -10,10 +10,13 @@ const Login = ({ onLogin, switchToSignup }) => {
     password: "",
     general: "",
   });
+  const [isLoading, setIsLoading] = useState(flase);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
+    //clear error whe the user types
+    setErrors((prev) => ({ ...prev, [id]: "" }));
   };
 
   const handleSubmit = (e) => {
