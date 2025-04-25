@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import '../App.css'; 
+import React, { useState } from "react";
+import "../App.css"; // Import the CSS file
 
 const ReviewForm = ({ onSubmit }) => {
   const [review, setReview] = useState({
-    username: '',
-    pros: '',
-    cons: '',
+    username: "",
+    pros: "",
+    cons: "",
     performance: 0,
     comfort: 0,
-    reliability: 0
+    reliability: 0,
+    image: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setReview({
       ...review,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -57,16 +58,18 @@ const ReviewForm = ({ onSubmit }) => {
           onChange={handleChange}
         />
       </div>
+
       <div className="form-group">
-        <label htmlFor="image">Image</label>
+        <label htmlFor="image">Image URL</label>
         <input
-        type="file"
-        id="image"
-        name="image"
-        accept="image/"
-        className='image'
+          type="text"
+          id="image"
+          name="image"
+          value={review.image}
+          onChange={handleChange}
+          placeholder="Enter image URL"
         />
-        </div>
+      </div>
 
       <div className="form-group">
         <label htmlFor="performance">Performance:</label>
@@ -101,10 +104,11 @@ const ReviewForm = ({ onSubmit }) => {
         />
       </div>
 
-      <button type="submit" className="submit-button">Submit Review</button>
+      <button type="submit" className="submit-button">
+        Submit Review
+      </button>
     </form>
   );
 };
 
 export default ReviewForm;
-
