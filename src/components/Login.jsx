@@ -67,6 +67,8 @@ const Login = ({ onLogin, switchToSignup }) => {
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Log In</h2>
 
+      {errors.general && <div className="error-message">{errors.general}</div>}
+
       <div>
         <label htmlFor="username">Username</label>
         <input
