@@ -90,6 +90,14 @@ const Auth = ({ onLogin, onSignup }) => {
         newErrors.birthDate = "you must be at least 13 years old ";
       }
     }
+    if (signupForm.password.length < 8) {
+      newErrors.password = "password must be atleast 8 characters ";
+    } else if (!/[A-Z]/.test(signupForm.password)) {
+      newErrors.password =
+        "password must contain at least one uppercase 1etter";
+    } else if (!/[!0-9]/.test(signupForm.password)) {
+      newErrors.password = "password must contain at least one number";
+    }
   };
 };
 
