@@ -104,6 +104,8 @@ const Auth = ({ onLogin, onSignup }) => {
     if (!signupForm.terms) {
       newErrors.terms = "accept this shit man!! terms an condition apply";
     }
+    setErrors(newErrors);
+    return object.keys(newErrors).length === 0;
   };
 };
 
