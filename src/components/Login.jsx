@@ -49,6 +49,16 @@ const Login = ({ onLogin, switchToSignup }) => {
 
     setIsLoading(true);
     setErrors((prev) => ({ ...prev, general: "" }));
+
+    try{
+      await onLogin(formData);
+
+    }catch(error) {
+      setErrors(prev =>({...prev, general:error.message || 'Login failed.please try again'}));
+
+    }finally {
+      setIsLoading(false);
+    }
   };
 
   return (
