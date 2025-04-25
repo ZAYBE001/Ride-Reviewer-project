@@ -33,6 +33,19 @@ const SignInForm = ({ onSignIn }) => {
     //clear errors when the user types
     setErrors((prev) => ({ ...prev, [id]: "" }));
   };
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      birthDate: "",
+      consent: "",
+    };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
