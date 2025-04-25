@@ -1,4 +1,4 @@
-// components/SignInForm.js
+
 import React, { useState } from "react";
 
 const SignInForm = ({ onSignIn }) => {
@@ -16,7 +16,7 @@ const SignInForm = ({ onSignIn }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Signing up with:", formData);
-    onSignIn(formData); // Simulates successful sign up
+    onSignIn(formData); 
   };
 
   return (

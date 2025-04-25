@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -17,7 +17,7 @@ body {
   padding: 20px;
 }
 
-/* Dark Mode Styles */
+
 .dark-mode {
   background-color: #333;
   color: #fff;
@@ -64,7 +64,7 @@ body {
   border-color: #555;
 }
 
-/* Login and Auth Section */
+
 .auth-section {
   max-width: 400px;
   margin: 40px auto;
@@ -127,7 +127,7 @@ body {
   font-weight: bold;
 }
 
-/* Car Gallery Styles */
+
 .car-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -160,7 +160,7 @@ body {
   color: #555;
 }
 
-/* Review Styles */
+
 .review-item {
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -187,7 +187,7 @@ body {
   cursor: pointer;
 }
 
-/* Review List Styles */
+
 .review-list {
   margin-bottom: 30px;
 }
@@ -205,7 +205,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Review Form Styles */
+
 .review-form {
   max-width: 100%;
   margin: 0 auto 40px auto;
@@ -279,7 +279,7 @@ body {
   background-color: #0056b3;
 }
 
-/* Search Form Styles */
+
 .search-form {
   max-width: 700px;
   margin: 0 auto 30px auto;
