@@ -1,25 +1,18 @@
-import React, { useState } from 'react';
-import '../App.css';
+import React, { useState } from "react";
+import "../App.css";
 
 const AddCarForm = ({ onAddCar }) => {
   const [formData, setFormData] = useState({
-    brand: '',
-    image: null,
-    comment: ''
+    brand: "",
+    image: "",
+    comment: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleImageChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      image: URL.createObjectURL(e.target.files[0]) // Generate temporary image URL
+      [name]: value,
     }));
   };
 
@@ -27,7 +20,7 @@ const AddCarForm = ({ onAddCar }) => {
     e.preventDefault();
 
     if (!formData.image) {
-      alert('Please upload an image.');
+      alert("Please enter an image URL.");
       return;
     }
 
@@ -39,11 +32,11 @@ const AddCarForm = ({ onAddCar }) => {
     };
 
     onAddCar(newCar); // Pass new car to the parent component
-    setFormData({ brand: '', image: null, comment: '' }); // Clear the form
+    setFormData({ brand: "", image: "", comment: "" }); // Clear the form
   };
 
   return (
-    <form className="add-car-form" onSubmit={handleSubmit}>
+    <form className="review-form" onSubmit={handleSubmit}>
       <h2>Add a New Car</h2>
 
       <div className="form-group">
@@ -59,16 +52,16 @@ const AddCarForm = ({ onAddCar }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="image">Image:</label>
+        <label htmlFor="image">Image URL:</label>
         <input
-          type="file"
+          type="text"
           id="image"
           name="image"
-          accept="image/*"
-          onChange={handleImageChange}
+          value={formData.image}
+          onChange={handleChange}
+          placeholder="Enter image URL"
           required
         />
-        {formData.image && <img src={formData.image} alt="Car Preview" width="100" />}
       </div>
 
       <div className="form-group">
@@ -82,7 +75,9 @@ const AddCarForm = ({ onAddCar }) => {
         />
       </div>
 
-      <button type="submit" className="submit-button">Add Car</button>
+      <button type="submit" className="submit-button">
+        Add Car
+      </button>
     </form>
   );
 };
