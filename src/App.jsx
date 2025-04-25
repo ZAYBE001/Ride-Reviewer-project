@@ -38,6 +38,13 @@ const App = () => {
   const handleLogin = async ({ username, password }) => {
     //simulate an Api call delay
     await new promise((resolve) => setTimeout(resolve, 1000));
+
+    const user = user.find(
+      (u) => u.username === username && u.password === password
+    );
+    if (!user) {
+      throw new Error("Invalid username or password");
+    }
   };
 
   const [searchResults, setSearchResults] = useState([]);
