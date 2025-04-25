@@ -50,6 +50,44 @@ const SignInForm = ({ onSignIn }) => {
       newErrors.firstName = "First name is required";
       isValid = false;
     }
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
+    }
+    // Username validation (same as login)
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z0-9]{4,20}$/.test(formData.username)) {
+      newErrors.username = "Username must be 4-20 alphanumeric characters";
+      isValid = false;
+    }
+    // Password validation (same as login but with confirmation)
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+      isValid = false;
+    } else if (!/(?=.*\d)(?=.*[!@#$%^&*])/.test(formData.password)) {
+      newErrors.password =
+        "Password must contain at least 1 number and 1 special character";
+      isValid = false;
+    }
+    // Confirm Password validation
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+      isValid = false;
+    }
+    // Consent validation
+    if (!formData.consent) {
+      newErrors.consent = "You must consent to data processing";
+      isValid = false;
+    }
   };
 
   const handleSubmit = (e) => {
