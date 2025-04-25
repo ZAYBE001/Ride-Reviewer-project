@@ -116,42 +116,152 @@ const SignInForm = ({ onSignIn }) => {
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2>Sign In</h2>
+      <h2>Create Your Account</h2>
 
-      <div>
-        <label htmlFor="email">Email</label>
+      {errors.general && <div className="error-message">{errors.general}</div>}
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="firstName">First Name*</label>
+          <input
+            id="firstName"
+            type="text"
+            value={formData.firstName}
+            onChange={handleChange}
+            className={errors.firstName ? "error" : ""}
+            required
+          />
+          {errors.firstName && (
+            <span className="error-message">{errors.firstName}</span>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name*</label>
+          <input
+            id="lastName"
+            type="text"
+            value={formData.lastName}
+            onChange={handleChange}
+            className={errors.lastName ? "error" : ""}
+            required
+          />
+          {errors.lastName && (
+            <span className="error-message">{errors.lastName}</span>
+          )}
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="email">Email*</label>
         <input
           id="email"
           type="email"
           value={formData.email}
           onChange={handleChange}
+          className={errors.email ? "error" : ""}
           required
         />
+        {errors.email && <span className="error-message">{errors.email}</span>}
       </div>
 
-      <div>
-        <label htmlFor="username">Username</label>
+      <div className="form-group">
+        <label htmlFor="username">Username*</label>
         <input
           id="username"
           type="text"
           value={formData.username}
           onChange={handleChange}
+          className={errors.username ? "error" : ""}
           required
         />
+        {errors.username && (
+          <span className="error-message">{errors.username}</span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
+      <div className="form-group">
+        <label htmlFor="password">Password*</label>
         <input
           id="password"
           type="password"
           value={formData.password}
           onChange={handleChange}
+          className={errors.password ? "error" : ""}
           required
         />
+        {errors.password && (
+          <span className="error-message">{errors.password}</span>
+        )}
+        <div className="password-hints">
+          <span>Password must contain:</span>
+          <ul>
+            <li className={formData.password.length >= 8 ? "valid" : ""}>
+              At least 8 characters
+            </li>
+            <li className={/(?=.*\d)/.test(formData.password) ? "valid" : ""}>
+              At least 1 number
+            </li>
+            <li
+              className={
+                /(?=.*[!@#$%^&*])/.test(formData.password) ? "valid" : ""
+              }
+            >
+              At least 1 special character
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <button type="submit">Sign Up</button>
+      <div className="form-group">
+        <label htmlFor="confirmPassword">Confirm Password*</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          className={errors.confirmPassword ? "error" : ""}
+          required
+        />
+        {errors.confirmPassword && (
+          <span className="error-message">{errors.confirmPassword}</span>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="birthDate">When were you born?*</label>
+        <input
+          id="birthDate"
+          type="month"
+          value={formData.birthDate}
+          onChange={handleChange}
+          className={errors.birthDate ? "error" : ""}
+          required
+        />
+        {errors.birthDate && (
+          <span className="error-message">{errors.birthDate}</span>
+        )}
+      </div>
+
+      <div className="form-group checkbox-group">
+        <input
+          id="consent"
+          type="checkbox"
+          checked={formData.consent}
+          onChange={handleChange}
+          className={errors.consent ? "error" : ""}
+          required
+        />
+        <label htmlFor="consent">
+          I consent to the processing of my personal data*
+        </label>
+        {errors.consent && (
+          <span className="error-message">{errors.consent}</span>
+        )}
+      </div>
+
+      <button type="submit" disabled={isLoading} className="submit-button">
+        {isLoading ? "Creating account..." : "Create Account"}
+      </button>
     </form>
   );
 };
