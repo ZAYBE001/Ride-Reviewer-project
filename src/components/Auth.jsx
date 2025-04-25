@@ -76,8 +76,19 @@ const Auth = ({ onLogin, onSignup }) => {
     if (!signupForm.lastName.trim()) {
       newErrors.lastName = "Last name is required ";
     }
-    if (!signupForm.isEmail(signupForm.email)) {
+    if (!validator.isEmail(signupForm.email)) {
       newErrors.isEmail = "Please enter a valid email address";
+    }
+    if (!signupForm.birthDate) {
+      newErrors.birthDate = "Birth date is requied";
+    } else {
+      const birthDate = new Date(signupForm.birthDate);
+      const minAgeDate = new Date();
+      minAgeDate.setFullYear(minAgeDate.getFullYear() - 13);
+
+      if (birthDate > minAgeDate) {
+        newErrors.birthDate = "you must be at least 13 years old ";
+      }
     }
   };
 };
