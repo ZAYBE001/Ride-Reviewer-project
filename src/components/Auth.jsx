@@ -59,16 +59,14 @@ const Auth = ({ onLogin, onSignup }) => {
       })
       .finally(() => setLoading(false));
   }
-  const handleloginChange = (e) => {
+  const handleLoginChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "username") {
-      const onlyLetters = /^[A-Za-z]*$/;
-      if (!onlyLetters.test(value)) return;
-    }
-    setLogin((prev) => ({ ...prev, [name]: value }));
+    setLoginForm((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user types
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 };
+
+export default Auth;
