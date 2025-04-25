@@ -76,6 +76,9 @@ const Auth = ({ onLogin, onSignup }) => {
     if (!signupForm.lastName.trim()) {
       newErrors.lastName = "Last name is required ";
     }
+    if (!signupForm.isEmail(signupForm.email)) {
+      newErrors.isEmail = "Please enter a valid email address";
+    }
   };
 };
 
