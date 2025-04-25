@@ -45,6 +45,11 @@ const SignInForm = ({ onSignIn }) => {
       birthDate: "",
       consent: "",
     };
+    //first name validation
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+      isValid = false;
+    }
   };
 
   const handleSubmit = (e) => {
