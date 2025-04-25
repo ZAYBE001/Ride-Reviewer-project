@@ -8,7 +8,7 @@ const Auth = ({ onLogin, onSignup }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const [loginForm, setLogin] = useState({
+  const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
@@ -30,35 +30,43 @@ const Auth = ({ onLogin, onSignup }) => {
     const newErrors = {};
 
     if (!validator.isEmail(loginForm.email)) {
-      newErrors.email = "plaese enter a valid email address";
+      newErrors.email = "please enter a valid email address";
     }
     if (loginForm.password.length < 8) {
       newErrors.password = "password must be atleast 8 characters";
     }
+    return newErrors; // this returns new validation errors after actual checks
     // const errors = validateLogin();
     // if (Object.keys(errors).length > 0) {
     //   setErrors(errors); // show errors in the UI
     // } else {
     //   onLogin(loginForm); // proceed to login
-
     // }
-    const errors = validateLogin();
-    if (Object.keys(errors).length === 0) {
-    } else {
-      setErrors(errors);
-      return;
-    }
+    // const errors = validateLogin();
+    // if (Object.keys(errors).length === 0) {
+    // } else {
+    //   setErrors(errors);
+    //   return;
+    // }
   };
 
-  const handleLoginSubmit = (e) => e.preventDefault();
-  if (validateLogin()) {
-    setLogin(true);
-    onLogin(loginForm)
-      .catch((err) => {
-        setErrors({ form: err.message });
-      })
-      .finally(() => setLoading(false));
-  }
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const errors = validateLogin();
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors); // Show errors in the UI
+    } else {
+      setLoginForm(true);
+      onLogin(loginForm)
+        .then(() => {
+          setIsLogin(true);
+        })
+        .catch((err) => {
+          setErrors({ form: err.message });
+        })
+        .finally(() => setLoading(false)); // Always stops loading
+    }
+  };
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setLoginForm((prev) => ({ ...prev, [name]: value }));
@@ -77,7 +85,7 @@ const Auth = ({ onLogin, onSignup }) => {
       newErrors.lastName = "Last name is required ";
     }
     if (!validator.isEmail(signupForm.email)) {
-      newErrors.isEmail = "Please enter a valid email address";
+      newErrors.email = "Please enter a valid email address";
     }
     if (!signupForm.birthDate) {
       newErrors.birthDate = "Birth date is requied";
@@ -99,13 +107,13 @@ const Auth = ({ onLogin, onSignup }) => {
       newErrors.password = "password must contain at least one number";
     }
     if (!signupForm.consent) {
-      newErrors.consent = "Consent to this shit my nigga";
+      newErrors.consent = "Consent to the processing of your data";
     }
     if (!signupForm.terms) {
-      newErrors.terms = "accept this shit man!! terms an condition apply";
+      newErrors.terms = "accept this trems and onditions";
     }
     setErrors(newErrors);
-    return object.keys(newErrors).length === 0;
+    return Object.keys(newErrors).length === 0;
   };
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -130,6 +138,218 @@ const Auth = ({ onLogin, onSignup }) => {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
+
+  return (
+    <div className="auth-container">
+      {isLogin ? (
+        <form className="auth-form" onSubmit={handleLoginSubmit}>
+          <h2>Login</h2>
+
+          {errors.form && <div className="error-message">{errors.form}</div>}
+
+          <div className={`form-group ${errors.email ? "has-error" : ""}`}>
+            <label htmlFor="login-email">Email:</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              value={loginForm.email}
+              onChange={handleLoginChange}
+              required
+            />
+            {errors.email && <span className="error-text">{errors.email}</span>}
+          </div>
+
+          <div className={`form-group ${errors.password ? "has-error" : ""}`}>
+            <label htmlFor="login-password">Password:</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              value={loginForm.password}
+              onChange={handleLoginChange}
+              required
+            />
+            {errors.password && (
+              <span className="error-text">{errors.password}</span>
+            )}
+          </div>
+
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          <p className="auth-switch">
+            Don't have an account?{" "}
+            <button type="button" onClick={() => setIsLogin(false)}>
+              Sign up
+            </button>
+          </p>
+        </form>
+      ) : (
+        <form className="auth-form" onSubmit={handleSignupSubmit}>
+          <h2>Sign Up</h2>
+
+          {errors.form && <div className="error-message">{errors.form}</div>}
+
+          <div className="form-row">
+            <div
+              className={`form-group ${errors.firstName ? "has-error" : ""}`}
+            >
+              <label htmlFor="first-name">First Name*</label>
+              <input
+                type="text"
+                id="first-name"
+                name="firstName"
+                value={signupForm.firstName}
+                onChange={handleSignupChange}
+                required
+              />
+              {errors.firstName && (
+                <span className="error-text">{errors.firstName}</span>
+              )}
+            </div>
+
+            <div className={`form-group ${errors.lastName ? "has-error" : ""}`}>
+              <label htmlFor="last-name">Last Name*</label>
+              <input
+                type="text"
+                id="last-name"
+                name="lastName"
+                value={signupForm.lastName}
+                onChange={handleSignupChange}
+                required
+              />
+              {errors.lastName && (
+                <span className="error-text">{errors.lastName}</span>
+              )}
+            </div>
+          </div>
+
+          <div className={`form-group ${errors.email ? "has-error" : ""}`}>
+            <label htmlFor="signup-email">Email*</label>
+            <input
+              type="email"
+              id="signup-email"
+              name="email"
+              value={signupForm.email}
+              onChange={handleSignupChange}
+              required
+            />
+            {errors.email && <span className="error-text">{errors.email}</span>}
+          </div>
+
+          <div className={`form-group ${errors.birthDate ? "has-error" : ""}`}>
+            <label htmlFor="birth-date">When were you born?*</label>
+            <input
+              type="month"
+              id="birth-date"
+              name="birthDate"
+              value={signupForm.birthDate}
+              onChange={handleSignupChange}
+              required
+            />
+            {errors.birthDate && (
+              <span className="error-text">{errors.birthDate}</span>
+            )}
+          </div>
+
+          <div className={`form-group ${errors.password ? "has-error" : ""}`}>
+            <label htmlFor="signup-password">Password*</label>
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              value={signupForm.password}
+              onChange={handleSignupChange}
+              required
+            />
+            {errors.password && (
+              <span className="error-text">{errors.password}</span>
+            )}
+            <div className="password-hints">
+              Password must contain:
+              <ul>
+                <li>At least 8 characters</li>
+                <li>At least one uppercase letter</li>
+                <li>At least one number</li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            className={`form-group ${
+              errors.confirmPassword ? "has-error" : ""
+            }`}
+          >
+            <label htmlFor="confirm-password">Confirm Password*</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirmPassword"
+              value={signupForm.confirmPassword}
+              onChange={handleSignupChange}
+              required
+            />
+            {errors.confirmPassword && (
+              <span className="error-text">{errors.confirmPassword}</span>
+            )}
+          </div>
+
+          <div
+            className={`form-group checkbox-group ${
+              errors.consent ? "has-error" : ""
+            }`}
+          >
+            <input
+              type="checkbox"
+              id="data-consent"
+              name="consent"
+              checked={signupForm.consent}
+              onChange={handleSignupChange}
+              required
+            />
+            <label htmlFor="data-consent">
+              I consent to the processing of my personal data*
+            </label>
+            {errors.consent && (
+              <span className="error-text">{errors.consent}</span>
+            )}
+          </div>
+
+          <div
+            className={`form-group checkbox-group ${
+              errors.terms ? "has-error" : ""
+            }`}
+          >
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              checked={signupForm.terms}
+              onChange={handleSignupChange}
+              required
+            />
+            <label htmlFor="terms">
+              I agree to the Terms and Conditions and Privacy Policy*
+            </label>
+            {errors.terms && <span className="error-text">{errors.terms}</span>}
+          </div>
+
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? "Creating account..." : "Sign Up"}
+          </button>
+
+          <p className="auth-switch">
+            Already have an account?{" "}
+            <button type="button" onClick={() => setIsLogin(true)}>
+              Login
+            </button>
+          </p>
+        </form>
+      )}
+    </div>
+  );
 };
 
 export default Auth;
