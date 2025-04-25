@@ -1,57 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import SearchForm from './components/SearchForm';
-import ReviewList from './components/ReviewList';
-import ReviewForm from './components/ReviewForm';
-import Login from './components/Login';
-import SignInForm from './components/SignInForm'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import SearchForm from "./components/SearchForm";
+import ReviewList from "./components/ReviewList";
+import ReviewForm from "./components/ReviewForm";
+import Login from "./components/Login";
+import SignInForm from "./components/SignInForm";
+
+const BASE_URL = "https://ride-reviewer-db-zkvn.onrender.com/api";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      username: 'John Doe',
-      pros: 'Great performance, smooth ride.',
-      cons: 'Expensive, less space.',
-      performance: 4,
-      comfort: 5,
-      reliability: 4,
-      helpfulVotes: 10,
-    },
-    {
-      id: 2,
-      username: 'Jane Smith',
-      pros: 'Comfortable and reliable.',
-      cons: 'Not great on performance.',
-      performance: 3,
-      comfort: 5,
-      reliability: 5,
-      helpfulVotes: 5,
-    },
-  ]);
+  const [reviews, setReviews] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  // Manage login state
-  const [cars, setCars] = useState([]);  // State for car images and data
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cars, setCars] = useState([]);
   const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
-    // Fetch the car data from the db.json file
-    const fetchCars = async () => {
-      const response = await fetch('/db.json');  // Assuming db.json is in the public folder
-      const data = await response.json();
-      setCars(data.images);
+    const fetchData = async () => {
+      try {
+        const reviewsResponse = await fetch(`${BASE_URL}/reviews`);
+        if (!reviewsResponse.ok) throw new Error("Error fetching reviews");
+        const reviewsData = await reviewsResponse.json();
+        setReviews(reviewsData);
+
+        const carsResponse = await fetch(`${BASE_URL}/images`);
+        if (!carsResponse.ok) throw new Error("Error fetching car images");
+        const carsData = await carsResponse.json();
+        setCars(carsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    fetchCars();
-  }, []); // Empty dependency array to run the fetch only once when the component mounts
+    fetchData();
+  }, []);
 
   const handleSearch = (criteria) => {
-    console.log('Search criteria submitted:', criteria);
     const filteredReviews = reviews.filter((review) => {
+      const brandMatch = criteria.brand
+        ? review.username.toLowerCase().includes(criteria.brand.toLowerCase())
+        : false;
+      const modelMatch = criteria.model
+        ? review.pros.toLowerCase().includes(criteria.model.toLowerCase())
+        : false;
+      const yearMatch = criteria.year ? review.year === criteria.year : false;
+      const priceRangeMatch = criteria.priceRange
+        ? review.priceRange === criteria.priceRange
+        : false;
+      const fuelTypeMatch = criteria.fuelType
+        ? review.fuelType === criteria.fuelType
+        : false;
+      const transmissionTypeMatch = criteria.transmissionType
+        ? review.transmissionType === criteria.transmissionType
+        : false;
+
+      const noCriteria =
+        !criteria.brand &&
+        !criteria.model &&
+        !criteria.year &&
+        !criteria.priceRange &&
+        !criteria.fuelType &&
+        !criteria.transmissionType;
+
       return (
-        (criteria.brand ? review.username.includes(criteria.brand) : true) &&
-        (criteria.model ? review.pros.includes(criteria.model) : true)
+        noCriteria ||
+        brandMatch ||
+        modelMatch ||
+        yearMatch ||
+        priceRangeMatch ||
+        fuelTypeMatch ||
+        transmissionTypeMatch
       );
     });
     setSearchResults(filteredReviews);
@@ -68,61 +87,114 @@ const App = () => {
   };
 
   const handleLogin = ({ username, password }) => {
-    // Simulate login with given credentials
-    console.log('Logged in with:', username, password);
-    setIsLoggedIn(true);  // Simulate successful login
+    console.log("Logged in with:", username, password);
+    setIsLoggedIn(true);
+  };
+
+  const handleSubmitReview = async (newReview) => {
+    try {
+      const response = await fetch(`${BASE_URL}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: newReview.username,
+          pros: newReview.pros,
+          cons: newReview.cons,
+          performance: newReview.performance,
+          comfort: newReview.comfort,
+          reliability: newReview.reliability,
+          image: newReview.image,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error submitting the review");
+      }
+
+      const submittedReview = await response.json();
+      console.log("Review submitted successfully:", submittedReview);
+
+      setReviews((prevReviews) => [...prevReviews, submittedReview]);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
   };
 
   return (
-    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
+    <div className={`app ${darkMode ? "dark-mode" : ""}`}>
       <div className="container">
-        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+        <button
+          className="btn btn-primary theme-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+        >
           Toggle Theme
         </button>
 
         {!isLoggedIn ? (
-  isRegistering ? (
-    <>
-      <SignInForm onSignIn={handleLogin} />
-      <p className="text-center mt-4">
-        Already have an account?{" "}
-        <button onClick={() => setIsRegistering(false)} className="text-blue-500 underline">
-          Log In
-        </button>
-      </p>
-    </>
-  ) : (
-    <>
-      <Login onLogin={handleLogin} />
-      <p className="text-center mt-4">
-        Don’t have an account?{" "}
-        <button onClick={() => setIsRegistering(true)} className="text-blue-500 underline">
-          Sign Up
-        </button>
-      </p>
-    </>
-     )
-      ) : (
+          isRegistering ? (
+            <section className="auth-section">
+              <SignInForm onSignIn={handleLogin} />
+              <p className="text-center mt-4">
+                Already have an account?{" "}
+                <button
+                  onClick={() => setIsRegistering(false)}
+                  className="text-blue-500 underline"
+                >
+                  Log In
+                </button>
+              </p>
+            </section>
+          ) : (
+            <section className="auth-section">
+              <Login onLogin={handleLogin} />
+              <p className="text-center mt-4">
+                Don’t have an account?{" "}
+                <button
+                  onClick={() => setIsRegistering(true)}
+                  className="text-blue-500 underline"
+                >
+                  Sign Up
+                </button>
+              </p>
+            </section>
+          )
+        ) : (
+          <main>
+            <section className="search-section">
+              <SearchForm onSearch={handleSearch} />
+            </section>
 
-          <>
-            <SearchForm onSearch={handleSearch} />
+            {searchResults.length > 0 ? (
+              <section className="reviews-section">
+                <h2>Search Results</h2>
+                <ReviewList reviews={searchResults} onVote={handleVote} />
+              </section>
+            ) : (
+              <section className="reviews-section">
+                <h2>All Reviews</h2>
+                <ReviewList reviews={reviews} onVote={handleVote} />
+              </section>
+            )}
 
-            <h2>Search Results</h2>
-            <ReviewList reviews={searchResults.length > 0 ? searchResults : reviews} onVote={handleVote} />
+            <section className="review-form-section">
+              <ReviewForm onSubmit={handleSubmitReview} />
+            </section>
 
-            <ReviewForm onSubmit={(newReview) => setReviews([...reviews, { id: Date.now(), ...newReview }])} />
-
-            <h2>Car Gallery</h2>
-            <div className="car-gallery">
-              {cars.map((car) => (
-                <div key={car.id} className="car-item">
-                  <img src={car.url} alt={car.title} />
-                  <h3>{car.title}</h3>
-                  <p>{car.comment}</p>
-                </div>
-              ))}
-            </div>
-          </>
+            <section className="car-gallery-section">
+              <h2>Car Gallery</h2>
+              <div className="car-gallery">
+                {cars.map((car) => (
+                  <div key={car.id} className="car-item">
+                    <img src={car.url} alt={car.title} />
+                    <h3>{car.title}</h3>
+                    <p>{car.comment}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </main>
         )}
       </div>
     </div>
