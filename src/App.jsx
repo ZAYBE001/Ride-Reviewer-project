@@ -30,6 +30,16 @@ const App = () => {
           reject(new Error("The Email is already regitered"));
           return;
         }
+        //create a new user obj
+        const mewUser = {
+          id: Date.now(),
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          birthDate: userData.birthDate,
+          password: userData.password,
+          createdAt: new Date().toISOString(),
+        };
       });
     });
   };
