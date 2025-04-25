@@ -98,6 +98,12 @@ const Auth = ({ onLogin, onSignup }) => {
     } else if (!/[!0-9]/.test(signupForm.password)) {
       newErrors.password = "password must contain at least one number";
     }
+    if (!signupForm.consent) {
+      newErrors.consent = "Consent to this shit my nigga";
+    }
+    if (!signupForm.terms) {
+      newErrors.terms = "accept this shit man!! terms an condition apply";
+    }
   };
 };
 
