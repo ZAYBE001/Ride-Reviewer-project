@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="auth-section">
+    <form onSubmit={handleSubmit} className="auth-form">
       <h2>Log In</h2>
 
       <div>
@@ -32,7 +32,7 @@ const Login = ({ onLogin }) => {
       </div>
 
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" >Password</label>
         <input
           id="password"
           type="password"
@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" >
         Log In
       </button>
     </form>
