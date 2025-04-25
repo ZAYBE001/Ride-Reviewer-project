@@ -99,7 +99,9 @@ const Login = ({ onLogin, switchToSignup }) => {
         )}
       </div>
 
-      <button type="submit">Log In</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Logging in..." : "Log in"}
+      </button>
     </form>
   );
 };
