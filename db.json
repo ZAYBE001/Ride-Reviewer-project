@@ -27,7 +27,7 @@
     {
       "id": "5",
       "url": "CARS/33.avif",
-      "title": "Range Rover vogue",
+      "title": "Range Rover Vogue",
       "comment": "worth every penny"
     },
     {
@@ -37,16 +37,149 @@
       "comment": "good car and reliable"
     },
     {
-      "id": 1745575807082,
-      "title": "nissan",
-      "url": "blob:http://localhost:5173/cb53ea1c-9705-43df-9c30-781d011d5e9f",
-      "comment": "breath taking"
+      "id": "7",
+      "url": "CARS/audi-a5-sportback.jpg",
+      "title": "Audi A5 Sportback",
+      "comment": "stylish and smooth drive"
     },
     {
-      "id": 1745576127126,
-      "title": "nissan",
-      "url": "blob:http://localhost:5173/093ba7f2-b118-4de4-a188-24433c8793e9",
-      "comment": "hkj"
+      "id": "8",
+      "url": "CARS/mercedes-benz-c-class.jpg",
+      "title": "Mercedes-Benz C-Class",
+      "comment": "luxury on wheels"
+    },
+    {
+      "id": "9",
+      "url": "CARS/honda-civic-type-r.jpeg",
+      "title": "Honda Civic Type R",
+      "comment": "pure driving joy"
+    },
+    {
+      "id": "10",
+      "url": "CARS/mazda-3-hatchback.jpg",
+      "title": "Mazda 3 Hatchback",
+      "comment": "handles like a dream"
+    },
+    {
+      "id": "11",
+      "url": "CARS/tesla-model-3.jpg",
+      "title": "Tesla Model 3",
+      "comment": "future of driving"
+    },
+    {
+      "id": "12",
+      "url": "CARS/kia-stinger-gt.jpg",
+      "title": "Kia Stinger GT",
+      "comment": "underrated beast"
+    },
+    {
+      "id": "13",
+      "url": "CARS/nissan-gt-r.jpeg",
+      "title": "Nissan GT-R",
+      "comment": "absolute monster on track"
+    },
+    {
+      "id": "14",
+      "url": "CARS/porsche-911-carrera.jpeg",
+      "title": "Porsche 911 Carrera",
+      "comment": "engineering perfection"
+    },
+    {
+      "id": "15",
+      "url": "CARS/subaru-wrx-sti.jpeg",
+      "title": "Subaru WRX STI",
+      "comment": "rally soul on the road"
+    },
+    {
+      "id": "16",
+      "url": "CARS/jeep-wrangler.jpeg",
+      "title": "Jeep Wrangler",
+      "comment": "ready for any terrain"
+    },
+    {
+      "id": "17",
+      "url": "CARS/chevrolet-camaro.jpeg",
+      "title": "Chevrolet Camaro",
+      "comment": "muscle with attitude"
+    },
+    {
+      "id": "18",
+      "url": "CARS/ford-mustang.jpeg",
+      "title": "Ford Mustang",
+      "comment": "classic and powerful"
+    },
+    {
+      "id": "19",
+      "url": "CARS/volvo-xc90.jpeg",
+      "title": "Volvo XC90",
+      "comment": "safe and sleek"
+    },
+    {
+      "id": "20",
+      "url": "CARS/nissan-370z.jpeg",
+      "title": "Nissan 370Z",
+      "comment": "raw and fun to drive"
+    },
+    {
+      "id": "21",
+      "url": "CARS/toyota-supra.jpeg",
+      "title": "Toyota Supra",
+      "comment": "iconic and powerful"
+    },
+    {
+      "id": "22",
+      "url": "CARS/acura-nsx.jpeg",
+      "title": "Acura NSX",
+      "comment": "hybrid performance king"
+    },
+    {
+      "id": "23",
+      "url": "CARS/mclaren-720s.jpeg",
+      "title": "McLaren 720S",
+      "comment": "track weapon"
+    },
+    {
+      "id": "24",
+      "url": "CARS/ferrari-roma.jpeg",
+      "title": "Ferrari Roma",
+      "comment": "Italian elegance"
+    },
+    {
+      "id": "25",
+      "url": "CARS/lamborghini-huracan.jpeg",
+      "title": "Lamborghini Huracán",
+      "comment": "wild and exotic"
+    },
+    {
+      "id": "26",
+      "url": "CARS/bentley-continental.jpeg",
+      "title": "Bentley Continental GT",
+      "comment": "luxury meets power"
+    },
+    {
+      "id": "27",
+      "url": "CARS/genesis-g80.jpeg",
+      "title": "Genesis G80",
+      "comment": "Korean luxury done right"
+    },
+    {
+      "id": "28",
+      "url": "CARS/mini-cooper-s.jpeg",
+      "title": "Mini Cooper S",
+      "comment": "small but mighty"
+    },
+    {
+      "id": "29",
+      "url": "CARS/peugeot-508.jpeg",
+      "title": "Peugeot 508",
+      "comment": "sleek French styling"
+    },
+    {
+      "id": "30",
+      "url": "CARS/skoda-octavia-rs.jpeg",
+      "title": "Skoda Octavia RS",
+      "comment": "budget-friendly performance"
     }
   ]
 }
+
