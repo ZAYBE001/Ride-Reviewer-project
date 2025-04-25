@@ -119,6 +119,13 @@ const Auth = ({ onLogin, onSignup }) => {
         .finally(() => setLoading(false));
     }
   };
+  const handleSignupChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setSignupForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 };
 
 export default Auth;
