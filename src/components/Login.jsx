@@ -29,6 +29,15 @@ const Login = ({ onLogin, switchToSignup }) => {
       newErrors.username = "username must be 4-20 characters";
       isValid = false;
     }
+    if (!formData.password.length < 8) {
+      newErrors.password =
+        "password must ontain at least 1 number and 1 special character";
+      isValid = false;
+    } else if (!/(?=.*\d)(?=.*[!@#$%^&*])/.test(formData.password)) {
+      newErrors.password =
+        "password must contain atleast 1 number and 1 special character";
+      isValid = false;
+    }
   };
 
   const handleSubmit = (e) => {
