@@ -18,6 +18,10 @@ const Login = ({ onLogin, switchToSignup }) => {
     //clear error whe the user types
     setErrors((prev) => ({ ...prev, [id]: "" }));
   };
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { userName: "", password: "" };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
