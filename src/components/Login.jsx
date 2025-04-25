@@ -102,6 +102,16 @@ const Login = ({ onLogin, switchToSignup }) => {
       <button type="submit" disabled={isLoading}>
         {isLoading ? "Logging in..." : "Log in"}
       </button>
+      <div className="auth-switch">
+        Don't have an account?{""}
+        <button
+          type="button"
+          onClick={switchToSignup}
+          className="switch-button"
+        >
+          signup
+        </button>
+      </div>
     </form>
   );
 };
