@@ -20,7 +20,15 @@ const Login = ({ onLogin, switchToSignup }) => {
   };
   const validateForm = () => {
     let isValid = true;
-    const newErrors = { userName: "", password: "" };
+    const newErrors = { username: "", password: "" };
+
+    if (!formData.username.trim()) {
+      newErrors.username = "username is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z0-9]{4,20}$/.test(formData.username)) {
+      newErrors.username = "username must be 4-20 characters";
+      isValid = false;
+    }
   };
 
   const handleSubmit = (e) => {
