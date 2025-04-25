@@ -107,6 +107,18 @@ const Auth = ({ onLogin, onSignup }) => {
     setErrors(newErrors);
     return object.keys(newErrors).length === 0;
   };
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    if (validateSignup()) {
+      setLoading(true);
+      onSignup(signupForm)
+        .then(() => setLogin(true))
+        .catch((err) => {
+          setErrors({ form: err.message });
+        })
+        .finally(() => setLoading(false));
+    }
+  };
 };
 
 export default Auth;
