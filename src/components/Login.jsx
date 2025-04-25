@@ -69,26 +69,34 @@ const Login = ({ onLogin, switchToSignup }) => {
 
       {errors.general && <div className="error-message">{errors.general}</div>}
 
-      <div>
+      <div className="form-group">
         <label htmlFor="username">Username</label>
         <input
           id="username"
           type="text"
           value={formData.username}
           onChange={handleChange}
+          className={errors.username ? "error" : ""}
           required
         />
+        {errors.username && (
+          <span className="error-message">{errors.username}</span>
+        )}
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
           value={formData.password}
           onChange={handleChange}
+          className={errors.password ? "error" : ""}
           required
         />
+        {errors.password && (
+          <span className="error-message">{errors.password}</span>
+        )}
       </div>
 
       <button type="submit">Log In</button>
