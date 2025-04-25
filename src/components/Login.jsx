@@ -38,6 +38,8 @@ const Login = ({ onLogin, switchToSignup }) => {
         "password must contain atleast 1 number and 1 special character";
       isValid = false;
     }
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = (e) => {
