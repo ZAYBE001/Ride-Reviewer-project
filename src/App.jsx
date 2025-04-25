@@ -47,6 +47,31 @@ const App = () => {
     }
     setIsLoggedIn(true);
   };
+  const handleSignUp = async (userData) => {
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Check if username or email already exists
+    const usernameExists = users.some((u) => u.username === userData.username);
+    const emailExists = users.some((u) => u.email === userData.email);
+
+    if (usernameExists) {
+      throw new Error("Username already taken");
+    }
+
+    if (emailExists) {
+      throw new Error("Email already registered");
+    }
+
+    // Add new user (in real app, password would be hashed)
+    const newUser = {
+      id: users.length + 1,
+      ...userData,
+    };
+
+    setUsers([...users, newUser]);
+    setIsLoggedIn(true);
+  };
 
   const [searchResults, setSearchResults] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
