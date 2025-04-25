@@ -42,21 +42,23 @@ const Login = ({ onLogin, switchToSignup }) => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await onLogin(formData);
 
     if (!validateForm()) return;
 
     setIsLoading(true);
     setErrors((prev) => ({ ...prev, general: "" }));
 
-    try{
+    try {
       await onLogin(formData);
-
-    }catch(error) {
-      setErrors(prev =>({...prev, general:error.message || 'Login failed.please try again'}));
-
-    }finally {
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        general: error.message || "Login failed.please try again",
+      }));
+    } finally {
       setIsLoading(false);
     }
   };
