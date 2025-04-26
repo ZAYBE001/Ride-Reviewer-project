@@ -61,22 +61,22 @@ const App = () => {
     const usernameExists = users.some((u) => u.username === userData.username);
     const emailExists = users.some((u) => u.email === userData.email);
 
-if (usernameExists) {
-  throw new Error("Username already taken");
-}
+    if (usernameExists) {
+      throw new Error("Username already taken");
+    }
 
-if (emailExists) {
-  throw new Error("Email already registered");
-}
+    if (emailExists) {
+      throw new Error("Email already registered");
+    }
 
-const newUser = {
-  id: users.length + 1,
-  ...userData,
-};
+    const newUser = {
+      id: users.length + 1,
+      ...userData,
+    };
 
-setUsers([...users, newUser]);
-setIsLoggedIn(true);
-localStorage.setItem("isLoggedIn", "true");
+    setUsers([...users, newUser]);
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
   };
 
   const [searchResults, setSearchResults] = useState([]);
@@ -123,13 +123,13 @@ localStorage.setItem("isLoggedIn", "true");
         body: JSON.stringify(newCar),
       });
 
-  if (!response.ok) throw new Error("Failed to add car");
+      if (!response.ok) throw new Error("Failed to add car");
 
-  const savedCar = await response.json();
-  setCars((prevCars) => [...prevCars, savedCar]);
-} catch (error) {
-  console.error("Error adding car:", error);
-}
+      const savedCar = await response.json();
+      setCars((prevCars) => [...prevCars, savedCar]);
+    } catch (error) {
+      console.error("Error adding car:", error);
+    }
   };
 
   const handleDeleteReview = (id) => {
@@ -149,81 +149,81 @@ localStorage.setItem("isLoggedIn", "true");
           Toggle Theme
         </button>
 
-    {!isLoggedIn ? (
-      authView === "login" ? (
-        <Login
-          onLogin={handleLogin}
-          switchToSignup={() => setAuthview("signup")}
-        />
-      ) : (
-        <SignUpForm
-          onSignUp={handleSignup}
-          switchToLogin={() => setAuthview("login")}
-        />
-      )
-    ) : (
-      <>
-        <div className="top-bar">
-          <span>Welcome back!</span>
-          <button
-            onClick={() => {
-              setIsLoggedIn(false);
-              localStorage.setItem("isLoggedIn", "false");
-            }}
-          >
-            Logout
-          </button>
-        </div>
-
-        <SearchForm onSearch={handleSearch} />
-
-        <h2>Search Results</h2>
-        <div className="car-gallery">
-          {(searchResults.length > 0 ? searchResults : cars).map((car) => (
-            <div key={car.id} className="car-item">
-              <img src={car.url} alt={car.title} />
-              <h3>{car.title}</h3>
-              <p>{car.comment}</p>
-              <button onClick={() => handleDeleteCar(car.id)}>
-                Delete Car
+        {!isLoggedIn ? (
+          authView === "login" ? (
+            <Login
+              onLogin={handleLogin}
+              switchToSignup={() => setAuthview("signup")}
+            />
+          ) : (
+            <SignUpForm
+              onSignUp={handleSignup}
+              switchToLogin={() => setAuthview("login")}
+            />
+          )
+        ) : (
+          <>
+            <div className="top-bar">
+              <span>Welcome back!</span>
+              <button
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  localStorage.setItem("isLoggedIn", "false");
+                }}
+              >
+                Logout
               </button>
             </div>
-          ))}
-        </div>
 
-        <ReviewForm
-          onSubmit={(newReview) =>
-            setReviews([...reviews, { id: Date.now(), ...newReview }])
-          }
-        />
+            <SearchForm onSearch={handleSearch} />
 
-        <h2>Car Reviews</h2>
-        <ReviewList
-          reviews={reviews}
-          onVote={handleVote}
-          onDelete={handleDeleteReview}
-        />
-
-        <AddCarForm onAddCar={handleAddCar} />
-
-        <h2>Car Gallery</h2>
-        <div className="car-gallery">
-          {cars.map((car) => (
-            <div key={car.id} className="car-item">
-              <img src={car.url} alt={car.title} />
-              <h3>{car.title}</h3>
-              <p>{car.comment}</p>
-              <button onClick={() => handleDeleteCar(car.id)}>
-                Delete Car
-              </button>
+            <h2>Search Results</h2>
+            <div className="car-gallery">
+              {(searchResults.length > 0 ? searchResults : cars).map((car) => (
+                <div key={car.id} className="car-item">
+                  <img src={car.url} alt={car.title} />
+                  <h3>{car.title}</h3>
+                  <p>{car.comment}</p>
+                  <button onClick={() => handleDeleteCar(car.id)}>
+                    Delete Car
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </>
-    )}
-  </div>
-</div>
+
+            <ReviewForm
+              onSubmit={(newReview) =>
+                setReviews([...reviews, { id: Date.now(), ...newReview }])
+              }
+            />
+
+            <h2>Car Reviews</h2>
+            <ReviewList
+              reviews={reviews}
+              onVote={handleVote}
+              onDelete={handleDeleteReview}
+            />
+
+            <AddCarForm onAddCar={handleAddCar} />
+
+            <h2>Car Gallery</h2>
+            <div className="car-gallery">
+              {cars.map((car) => (
+                <div key={car.id} className="car-item">
+                  <img src={car.url} alt={car.title} />
+                  <h3>{car.title}</h3>
+                  <p>{car.comment}</p>
+                  <button onClick={() => handleDeleteCar(car.id)}>
+                    Delete Car
+                  </button>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 
-//export default App;
+export default App;
