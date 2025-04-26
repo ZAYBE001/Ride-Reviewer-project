@@ -1,176 +1,199 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import SearchForm from './components/SearchForm';
-import ReviewList from './components/ReviewList';
-import ReviewForm from './components/ReviewForm';
-import Login from './components/Login';
-import SignInForm from './components/SignInForm'
-import AddCarForm from './components/AddCarForm';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import Home from './components/Home';
+import Reviews from './components/Reviews';
+import AddReview from './components/AddReview';
+import CarStats from './components/CarStats';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import Leaderboard from './components/Leaderboard';
 
+const AppContainer = styled.div`
+  font-family: 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+`;
 
-const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      username: 'John Doe',
-      pros: 'Great performance, smooth ride.',
-      cons: 'Expensive, less space.',
-      performance: 4,
-      comfort: 5,
-      reliability: 4,
-      helpfulVotes: 10,
-    },
-    {
-      id: 2,
-      username: 'Jane Smith',
-      pros: 'Comfortable and reliable.',
-      cons: 'Not great on performance.',
-      performance: 3,
-      comfort: 5,
-      reliability: 5,
-      helpfulVotes: 5,
-    },
-  ]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  
-  const [cars, setCars] = useState([]);
-  const [isRegistering, setIsRegistering] = useState(false);
+const Nav = styled.nav`
+  background-color: #333;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+const NavLink = styled(Link)`
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  margin-right: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const UserGreeting = styled.span`
+  color: white;
+  margin-left: auto;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const UserBadge = styled.span`
+  background-color: #4CAF50;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+`;
+
+const Title = styled.h1`
+  color: #444;
+  text-align: center;
+  margin-bottom: 10px;
+`;
+
+const Subtitle = styled.p`
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+function App() {
+  const [reviews, setReviews] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    
-    const fetchCars = async () => {
-      const response = await fetch('/db.json');  
-      const data = await response.json();
-      setCars(data.images);
-    };
+    fetchReviews();
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
-    fetchCars();
-  }, []); 
-
-  const handleSearch = (brand) => {
-    const filtered = cars.filter(car =>
-      car.title.toLowerCase().includes(brand.toLowerCase())
-    );
-    setSearchResults(filtered);
-  };
-
-  const handleVote = (id) => {
-    setReviews((prevReviews) =>
-      prevReviews.map((review) =>
-        review.id === id
-          ? { ...review, helpfulVotes: review.helpfulVotes + 1 }
-          : review
-      )
-    );
-  };
-
-  const handleAddCar = async (newCar) => {
+  const fetchReviews = async () => {
     try {
-      const response = await fetch('http://localhost:3000/images', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newCar),
-      });
-  
-      if (!response.ok) throw new Error('Failed to add car');
-  
-      const savedCar = await response.json();
-      setCars(prevCars => [...prevCars, savedCar]);
+      const response = await axios.get('http://localhost:3001/reviews');
+      setReviews(response.data);
     } catch (error) {
-      console.error('Error adding car:', error);
+      console.error('Error fetching reviews:', error);
     }
   };
-  
-  const handleDeleteReview = (id) => {
-    const updatedReviews = reviews.filter((review) => review.id !== id);
-    setReviews(updatedReviews);
-  };
-  
-  const handleDeleteCar = (id) => {
-    const updatedCars = cars.filter((car) => car.id !== id);
-    setCars(updatedCars); // Update the cars state by removing the car with the given id
+
+  const addReview = (newReview) => {
+    setReviews([...reviews, newReview]);
   };
 
-  const handleLogin = ({ username, password }) => {
+  const handleLogin = async (userData) => {
+    try {
+      // Fetch the latest user data including reviewCount
+      const response = await axios.get(`http://localhost:3001/users/${userData.id}`);
+      const updatedUser = {
+        ...userData,
+        reviewCount: response.data.reviewCount || 0
+      };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
-    console.log('Logged in with:', username, password);
-    setIsLoggedIn(true);  
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  const updateUserReviewCount = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/users/${userId}`);
+      const updatedUser = {
+        ...response.data,
+        reviewCount: (response.data.reviewCount || 0) + 1
+      };
+      
+      await axios.patch(`http://localhost:3001/users/${userId}`, {
+        reviewCount: updatedUser.reviewCount
+      });
+
+      if (user && user.id === userId) {
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
+    } catch (error) {
+      console.error('Error updating review count:', error);
+    }
   };
 
   return (
-    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
-      <div className="container">
-        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-          Toggle Theme
-        </button>
-
-        {!isLoggedIn ? (
-  isRegistering ? (
-    <>
-      <SignInForm onSignIn={handleLogin} />
-      <p className="">
-        Already have an account?{" "}
-        <button onClick={() => setIsRegistering(false)} >
-          Log In
-        </button>
-      </p>
-    </>
-  ) : (
-    <>
-      <Login onLogin={handleLogin} />
-      <p className="">
-        Don’t have an account?{" "}
-        <button onClick={() => setIsRegistering(true)} >
-          Sign In
-        </button>
-      </p>
-    </>
-     )
-      ) : (
-
-          <>
-            <SearchForm onSearch={handleSearch} />
-
-            <h2>Search Results</h2>
-              <div className="car-gallery">
-                {(searchResults.length > 0 ? searchResults : cars).map((car) => (
-                  <div key={car.id} className="car-item">
-                    <img src={car.url} alt={car.title} />
-                    <h3>{car.title}</h3>
-                    <p>{car.comment}</p>
-                    <button onClick={() => handleDeleteCar(car.id)}>Delete Car</button>
-                  </div>
-                ))}
-              </div>
-
-
-            <ReviewForm onSubmit={(newReview) => setReviews([...reviews, { id: Date.now(), ...newReview }])} />
-
-            <h2>Car Reviews</h2>
-            <ReviewList reviews={reviews} onVote={(id) => setReviews(prevReviews => prevReviews.map(review => review.id === id ? { ...review, helpfulVotes: review.helpfulVotes + 1 } : review))} onDelete={handleDeleteReview} />
-           
-            <AddCarForm onAddCar={handleAddCar} />
-
-            <h2>Car Gallery</h2>
-            <div className="car-gallery">
-              {cars.map((car) => (
-                <div key={car.id} className="car-item">
-                  <img src={car.url} alt={car.title} />
-                  <h3>{car.title}</h3>
-                  <p>{car.comment}</p>
-                  <button onClick={() => handleDeleteCar(car.id)}>Delete Car</button>
-                </div>
-              ))}
-            </div>
-           
-          </>
-        )}
-      </div>
-    </div>
+    <Router>
+      <AppContainer>
+        <Title>Car Review App</Title>
+        <Subtitle>Share your experiences and see what others think</Subtitle>
+        <Nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/reviews">All Reviews</NavLink>
+          <NavLink to="/leaderboard">Leaderboard</NavLink>
+          {user ? (
+            <>
+              <NavLink to="/add-review">Add Review</NavLink>
+              <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+              <UserGreeting>
+                Welcome, {user.name}
+                <UserBadge>{user.reviewCount || 0} reviews</UserBadge>
+              </UserGreeting>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/signup">Sign Up</NavLink>
+            </>
+          )}
+        </Nav>
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/reviews" element={<Reviews reviews={reviews} />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route 
+            path="/add-review" 
+            element={
+              <ProtectedRoute user={user}>
+                <AddReview 
+                  addReview={addReview} 
+                  user={user} 
+                  updateReviewCount={updateUserReviewCount} 
+                />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/car-stats" element={<CarStats reviews={reviews} />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </AppContainer>
+    </Router>
   );
-};
+}
 
 export default App;
