@@ -13,10 +13,10 @@ const Login = ({ onLogin, switchToSignup }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
     //clear error whe the user types
-    setErrors((prev) => ({ ...prev, [id]: "" }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
   const validateForm = () => {
     let isValid = true;
@@ -68,9 +68,10 @@ const Login = ({ onLogin, switchToSignup }) => {
       {errors.general && <div className="error-message">{errors.general}</div>}
 
       <div className="form-group">
-        <label htmlFor="username">Username</label>
+        <label htmlFor="login-username">Username</label>
         <input
-          id="username"
+          id="login-username"
+          name="username"
           type="text"
           value={formData.username}
           onChange={handleChange}
@@ -85,7 +86,8 @@ const Login = ({ onLogin, switchToSignup }) => {
       <div className="form-group">
         <label htmlFor="password">Password</label>
         <input
-          id="password"
+          id="login-password"
+          name="password"
           type="password"
           value={formData.password}
           onChange={handleChange}
