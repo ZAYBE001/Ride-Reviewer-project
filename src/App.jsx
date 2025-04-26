@@ -30,19 +30,19 @@ const App = () => {
     },
   ]);
   const [searchResults, setSearchResults] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  // Manage login state
-  const [cars, setCars] = useState([]);  // State for car images and data
+  const [isLoggedIn, setIsLoggedIn] = useState(false);  
+  const [cars, setCars] = useState([]);  
 
   useEffect(() => {
-    // Fetch the car data from the db.json file
+    
     const fetchCars = async () => {
-      const response = await fetch('/db.json');  // Assuming db.json is in the public folder
+      const response = await fetch('/db.json');  
       const data = await response.json();
       setCars(data.images);
     };
 
     fetchCars();
-  }, []); // Empty dependency array to run the fetch only once when the component mounts
+  }, []);
 
   const handleSearch = (criteria) => {
     console.log('Search criteria submitted:', criteria);
@@ -66,9 +66,9 @@ const App = () => {
   };
 
   const handleLogin = ({ username, password }) => {
-    // Simulate login with given credentials
+    
     console.log('Logged in with:', username, password);
-    setIsLoggedIn(true);  // Simulate successful login
+    setIsLoggedIn(true); 
   };
 
   return (
@@ -79,7 +79,7 @@ const App = () => {
         </button>
 
         {!isLoggedIn ? (
-          // Display login form if the user is not logged in
+          
           <Login onLogin={handleLogin} />
         ) : (
           <>
