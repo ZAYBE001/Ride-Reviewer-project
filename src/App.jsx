@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -82,13 +81,24 @@ const Subtitle = styled.p`
 function App() {
   const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchReviews();
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const initializeApp = async () => {
+      try {
+        await fetchReviews();
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error('Initialization error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initializeApp();
   }, []);
 
   const fetchReviews = async () => {
@@ -97,6 +107,7 @@ function App() {
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
+      throw error;
     }
   };
 
@@ -106,7 +117,6 @@ function App() {
 
   const handleLogin = async (userData) => {
     try {
-      // Fetch the latest user data including reviewCount
       const response = await axios.get(`http://localhost:3001/users/${userData.id}`);
       const updatedUser = {
         ...userData,
@@ -116,6 +126,7 @@ function App() {
       localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (error) {
       console.error('Error fetching user data:', error);
+      throw error;
     }
   };
 
@@ -142,8 +153,13 @@ function App() {
       }
     } catch (error) {
       console.error('Error updating review count:', error);
+      throw error;
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Or a proper loading component
+  }
 
   return (
     <Router>
@@ -194,6 +210,7 @@ function App() {
         </Routes>
       </AppContainer>
     </Router>
-  ),
+  );
 }
-export default App
+
+export default App;
