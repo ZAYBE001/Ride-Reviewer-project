@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css'; // Import the CSS file
+import '../App.css'; 
 
 const ReviewForm = ({ onSubmit }) => {
   const [review, setReview] = useState({
@@ -57,6 +57,16 @@ const ReviewForm = ({ onSubmit }) => {
           onChange={handleChange}
         />
       </div>
+      <div className="form-group">
+        <label htmlFor="image">Image</label>
+        <input
+        type="file"
+        id="image"
+        name="image"
+        accept="image/"
+        className='image'
+        />
+        </div>
 
       <div className="form-group">
         <label htmlFor="performance">Performance:</label>
