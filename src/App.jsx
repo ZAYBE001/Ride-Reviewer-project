@@ -47,7 +47,7 @@ const App = () => {
     }
     setIsLoggedIn(true);
   };
-  const handleSignUp = async (userData) => {
+  const handleSignup = async (userData) => {
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -140,81 +140,76 @@ const App = () => {
         <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
           Toggle Theme
         </button>
-
         {!isLoggedIn ? (
-          isRegistering ? (
-            <>
-              <SignInForm onSignIn={handleLogin} />
-              <p className="">
-                Already have an account?{" "}
-                <button onClick={() => setIsRegistering(false)}>Log In</button>
-              </p>
-            </>
+          authView === "login" ? (
+            <Login
+              onLogin={handleLogin}
+              switchToSignup={() => setAuthview("signup")}
+            />
           ) : (
             <>
-              <Login onLogin={handleLogin} />
-              <p className="">
-                Don’t have an account?{" "}
-                <button onClick={() => setIsRegistering(true)}>Sign In</button>
-              </p>
+              <signUpForm
+                onSignUp={handleSignup}
+                switchToLogin={() => setAuthview("login")}
+              />
             </>
           )
         ) : (
-          <>
-            <SearchForm onSearch={handleSearch} />
-
-            <h2>Search Results</h2>
-            <div className="car-gallery">
-              {(searchResults.length > 0 ? searchResults : cars).map((car) => (
-                <div key={car.id} className="car-item">
-                  <img src={car.url} alt={car.title} />
-                  <h3>{car.title}</h3>
-                  <p>{car.comment}</p>
-                  <button onClick={() => handleDeleteCar(car.id)}>
-                    Delete Car
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <ReviewForm
-              onSubmit={(newReview) =>
-                setReviews([...reviews, { id: Date.now(), ...newReview }])
-              }
-            />
-
-            <h2>Car Reviews</h2>
-            <ReviewList
-              reviews={reviews}
-              onVote={(id) =>
-                setReviews((prevReviews) =>
-                  prevReviews.map((review) =>
-                    review.id === id
-                      ? { ...review, helpfulVotes: review.helpfulVotes + 1 }
-                      : review
-                  )
-                )
-              }
-              onDelete={handleDeleteReview}
-            />
-
-            <AddCarForm onAddCar={handleAddCar} />
-
-            <h2>Car Gallery</h2>
-            <div className="car-gallery">
-              {cars.map((car) => (
-                <div key={car.id} className="car-item">
-                  <img src={car.url} alt={car.title} />
-                  <h3>{car.title}</h3>
-                  <p>{car.comment}</p>
-                  <button onClick={() => handleDeleteCar(car.id)}>
-                    Delete Car
-                  </button>
-                </div>
-              ))}
-            </div>
-          </>
+          <div>Welcome back! You're logged in.</div> // Logged-in UI goes here
         )}
+
+        <SearchForm onSearch={handleSearch} />
+
+        <h2>Search Results</h2>
+        <div className="car-gallery">
+          {(searchResults.length > 0 ? searchResults : cars).map((car) => (
+            <div key={car.id} className="car-item">
+              <img src={car.url} alt={car.title} />
+              <h3>{car.title}</h3>
+              <p>{car.comment}</p>
+              <button onClick={() => handleDeleteCar(car.id)}>
+                Delete Car
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <ReviewForm
+          onSubmit={(newReview) =>
+            setReviews([...reviews, { id: Date.now(), ...newReview }])
+          }
+        />
+
+        <h2>Car Reviews</h2>
+        <ReviewList
+          reviews={reviews}
+          onVote={(id) =>
+            setReviews((prevReviews) =>
+              prevReviews.map((review) =>
+                review.id === id
+                  ? { ...review, helpfulVotes: review.helpfulVotes + 1 }
+                  : review
+              )
+            )
+          }
+          onDelete={handleDeleteReview}
+        />
+
+        <AddCarForm onAddCar={handleAddCar} />
+
+        <h2>Car Gallery</h2>
+        <div className="car-gallery">
+          {cars.map((car) => (
+            <div key={car.id} className="car-item">
+              <img src={car.url} alt={car.title} />
+              <h3>{car.title}</h3>
+              <p>{car.comment}</p>
+              <button onClick={() => handleDeleteCar(car.id)}>
+                Delete Car
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
