@@ -24,13 +24,13 @@ const SignUpForm = ({ onSignUp }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { id, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [id]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
     //clear errors when the user types
-    setErrors((prev) => ({ ...prev, [id]: "" }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
   const validateForm = () => {
     let isValid = true;
@@ -120,9 +120,10 @@ const SignUpForm = ({ onSignUp }) => {
       {errors.general && <div className="error-message">{errors.general}</div>}
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="firstName">First Name*</label>
+          <label htmlFor="signup-firstName">First Name*</label>
           <input
-            id="firstName"
+            id="signup-firstName"
+            name="firstName"
             type="text"
             value={formData.firstName}
             onChange={handleChange}
@@ -135,9 +136,10 @@ const SignUpForm = ({ onSignUp }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="lastName">Last Name*</label>
+          <label htmlFor="signup-lastName">Last Name*</label>
           <input
-            id="lastName"
+            id="signup-lastName"
+            name="lastName"
             type="text"
             value={formData.lastName}
             onChange={handleChange}
@@ -151,9 +153,10 @@ const SignUpForm = ({ onSignUp }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="email">Email*</label>
+        <label htmlFor="signup-email">Email*</label>
         <input
-          id="email"
+          id="signup-email"
+          name="email"
           type="email"
           value={formData.email}
           onChange={handleChange}
@@ -164,9 +167,10 @@ const SignUpForm = ({ onSignUp }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="username">Username*</label>
+        <label htmlFor="signup-username">Username*</label>
         <input
-          id="username"
+          id="signup-username"
+          name="username"
           type="text"
           value={formData.username}
           onChange={handleChange}
@@ -179,9 +183,10 @@ const SignUpForm = ({ onSignUp }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="password">Password*</label>
+        <label htmlFor="signup-password">Password*</label>
         <input
-          id="password"
+          id="signup-password"
+          name="password"
           type="password"
           value={formData.password}
           onChange={handleChange}
@@ -212,9 +217,10 @@ const SignUpForm = ({ onSignUp }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="confirmPassword">Confirm Password*</label>
+        <label htmlFor="signup-confirmPassword">Confirm Password*</label>
         <input
-          id="confirmPassword"
+          id="signup-confirmPassword"
+          name="confirmPassword"
           type="password"
           value={formData.confirmPassword}
           onChange={handleChange}
@@ -227,9 +233,10 @@ const SignUpForm = ({ onSignUp }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="birthDate">When were you born?*</label>
+        <label htmlFor="signup-birthDate">When were you born?*</label>
         <input
-          id="birthDate"
+          id="signup-birthDate"
+          name="birthDate"
           type="month"
           value={formData.birthDate}
           onChange={handleChange}
@@ -243,14 +250,15 @@ const SignUpForm = ({ onSignUp }) => {
 
       <div className="form-group checkbox-group">
         <input
-          id="consent"
+          id="signup-consent"
+          name="consent"
           type="checkbox"
           checked={formData.consent}
           onChange={handleChange}
           className={errors.consent ? "error" : ""}
           required
         />
-        <label htmlFor="consent">
+        <label htmlFor="signup-consent">
           I consent to the processing of my personal data*
         </label>
         {errors.consent && (
