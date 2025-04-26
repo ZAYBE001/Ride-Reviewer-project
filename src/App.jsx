@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -193,7 +194,6 @@ function App() {
         </Routes>
       </AppContainer>
     </Router>
-  );
+  ),
 }
-
-export default App;
+export default App
