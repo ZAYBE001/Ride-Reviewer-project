@@ -8,19 +8,14 @@ import SignUpForm from "./components/SignUpForm";
 import AddCarForm from "./components/AddCarForm";
 
 const App = () => {
+  const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
   const [darkMode, setDarkMode] = useState(false);
   const [authView, setAuthview] = useState("login");
-  const [users, setUsers] = useState([
-    // Add users state
-    {
-      id: 1,
-      username: "testuser",
-      password: "Test@123",
-      email: "test@example.com",
-      firstName: "test",
-      lastName: "user",
-    },
-  ]);
+  const [users, setUsers] = useState(() => {
+    const storedUsers = localStorage.getItem("users");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
 
   //mock userdata base
   const [reviews, setReviews] = useState([
@@ -48,7 +43,7 @@ const App = () => {
 
   const handleLogin = async ({ username, password }) => {
     //simulate an Api call delay
-    await new promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const user = users.find(
       (u) => u.username === username && u.password === password
