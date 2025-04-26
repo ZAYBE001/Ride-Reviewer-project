@@ -55,6 +55,7 @@ const App = () => {
       throw new Error("Invalid username or password");
     }
     setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
   };
   const handleSignup = async (userData) => {
     // Simulate API call delay
@@ -80,6 +81,7 @@ const App = () => {
 
     setUsers([...users, newUser]);
     setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
   };
 
   const [searchResults, setSearchResults] = useState([]);
@@ -167,7 +169,17 @@ const App = () => {
             </>
           )
         ) : (
-          <div>Welcome back! You're logged in.</div> // Logged-in UI goes here
+          <div className="top-bar">
+            <span>Welcome back!</span>
+            <button
+              onClick={() => {
+                setIsLoggedIn(false);
+                localStorage.setItem("isLoggedIn", "false");
+              }}
+            >
+              Logout
+            </button>
+          </div>
         )}
 
         <SearchForm onSearch={handleSearch} />
