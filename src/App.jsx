@@ -83,7 +83,10 @@ const App = () => {
   };
 
   const [searchResults, setSearchResults] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => JSON.parse(localStorage.getItem("isLoggedIn")) || false
+  );
+
   const [cars, setCars] = useState([]);
   const [isRegistering, setIsRegistering] = useState(false);
 
