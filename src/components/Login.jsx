@@ -10,7 +10,7 @@ const Login = ({ onLogin, switchToSignup }) => {
     password: "",
     general: "",
   });
-  const [isLoading, setIsLoading] = useState(flase);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -29,7 +29,7 @@ const Login = ({ onLogin, switchToSignup }) => {
       newErrors.username = "username must be 4-20 characters";
       isValid = false;
     }
-    if (!formData.password.length < 8) {
+    if (formData.password.length < 8) {
       newErrors.password =
         "password must ontain at least 1 number and 1 special character";
       isValid = false;
