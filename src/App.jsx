@@ -4,12 +4,23 @@ import SearchForm from "./components/SearchForm";
 import ReviewList from "./components/ReviewList";
 import ReviewForm from "./components/ReviewForm";
 import Login from "./components/Login";
-import SignInForm from "./components/SignInForm";
+import SignUpForm from "./components/SignUpForm";
 import AddCarForm from "./components/AddCarForm";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [authView, setAuthview] = useState("login");
+  const [users, setUsers] = useState([
+    // Add users state
+    {
+      id: 1,
+      username: "testuser",
+      password: "Test@123",
+      email: "test@example.com",
+      firstName: "test",
+      lastName: "user",
+    },
+  ]);
 
   //mock userdata base
   const [reviews, setReviews] = useState([
@@ -39,7 +50,7 @@ const App = () => {
     //simulate an Api call delay
     await new promise((resolve) => setTimeout(resolve, 1000));
 
-    const user = user.find(
+    const user = users.find(
       (u) => u.username === username && u.password === password
     );
     if (!user) {
@@ -148,7 +159,7 @@ const App = () => {
             />
           ) : (
             <>
-              <signUpForm
+              <SignUpForm
                 onSignUp={handleSignup}
                 switchToLogin={() => setAuthview("login")}
               />

@@ -44,7 +44,6 @@ const Login = ({ onLogin, switchToSignup }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await onLogin(formData);
 
     if (!validateForm()) return;
 

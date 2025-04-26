@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SignInForm = ({ onSignIn }) => {
+const SignUpForm = ({ onSignUp }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     LastName: "",
@@ -27,7 +27,7 @@ const SignInForm = ({ onSignIn }) => {
     const { id, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [id]: type === "checkedbox" ? checked : value,
+      [id]: type === "checkbox" ? checked : value,
     }));
     //clear errors when the user types
     setErrors((prev) => ({ ...prev, [id]: "" }));
@@ -265,4 +265,4 @@ const SignInForm = ({ onSignIn }) => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
