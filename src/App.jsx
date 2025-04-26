@@ -16,6 +16,9 @@ const App = () => {
     const storedUsers = localStorage.getItem("users");
     return storedUsers ? JSON.parse(storedUsers) : [];
   });
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
 
   //mock userdata base
   const [reviews, setReviews] = useState([
