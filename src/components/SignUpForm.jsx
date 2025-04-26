@@ -29,7 +29,7 @@ const SignUpForm = ({ onSignUp }) => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    //clear errors when the user types
+    //clear errors when the user types~
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
   const validateForm = () => {
