@@ -44,12 +44,12 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/sessions', {
+      const response = await axios.post('http://localhost:3000/sessions', {
         username,
         password
       });
       
-      const userResponse = await axios.get(`http://localhost:3001/users?username=${username}`);
+      const userResponse = await axios.get(`http://localhost:3000/users?username=${username}`);
       const user = userResponse.data[0];
       
       onLogin(user);

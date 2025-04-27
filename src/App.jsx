@@ -11,6 +11,7 @@ import Signup from './components/Auth/Signup';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import Leaderboard from './components/Leaderboard';
 
+
 const AppContainer = styled.div`
   font-family: 'Arial', sans-serif;
   max-width: 1200px;
@@ -103,7 +104,7 @@ function App() {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/reviews');
+      const response = await axios.get('http://localhost:3000/reviews');
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -117,7 +118,7 @@ function App() {
 
   const handleLogin = async (userData) => {
     try {
-      const response = await axios.get(`http://localhost:3001/users/${userData.id}`);
+      const response = await axios.get(`http://localhost:3000/users/${userData.id}`);
       const updatedUser = {
         ...userData,
         reviewCount: response.data.reviewCount || 0
@@ -137,13 +138,13 @@ function App() {
 
   const updateUserReviewCount = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3001/users/${userId}`);
+      const response = await axios.get(`http://localhost:3000/users/${userId}`);
       const updatedUser = {
         ...response.data,
         reviewCount: (response.data.reviewCount || 0) + 1
       };
       
-      await axios.patch(`http://localhost:3001/users/${userId}`, {
+      await axios.patch(`http://localhost:3000/users/${userId}`, {
         reviewCount: updatedUser.reviewCount
       });
 
@@ -158,13 +159,13 @@ function App() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or a proper loading component
+    return <div>Loading...</div>; 
   }
 
   return (
     <Router>
       <AppContainer>
-        <Title>Car Review App</Title>
+        <Title> RideReview App</Title>
         <Subtitle>Share your experiences and see what others think</Subtitle>
         <Nav>
           <NavLink to="/">Home</NavLink>
