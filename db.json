@@ -58,7 +58,7 @@
     },
 
     {
-      "id": "6",
+      "id": "7",
       "carMake": "Toyota",
       "carModel": "supra",
       "reviewText": " fast and reliable", 
@@ -67,7 +67,7 @@
       "imageUrl": "CARS/toyota-supra.jpeg"
     },
     {
-      "id": "7",
+      "id": "8",
 
       "carMake": "Lamborghini",
       "carModel": "Aventador",
@@ -77,7 +77,7 @@
       "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSdSmV9IqTB43Vgp40sHSpLh_p8ONHr2j2QJyPCuB96IiK3ZlixAADcT1AaJxeBXhp3W8dL1yuLTnrMl7kogIKOL84oJ9Je1Dww-Tz3xVLH3UsAjKGi3gbm&usqp=CAc"
     },
     {
-      "id": "5a5d",
+      "id": "9",
       "carMake": "Toyota",
       "carModel": "Camry",
       "reviewText": "Reliable and fuel-efficient daily driver. The smooth ride and excellent fuel economy make it perfect for commuting.",
