@@ -9,7 +9,6 @@ import CarStats from './components/CarStats';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
-import Leaderboard from './components/Leaderboard';
 
 const AppContainer = styled.div`
   font-family: 'Arial', sans-serif;
@@ -103,7 +102,7 @@ function App() {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/reviews');
+      const response = await axios.get('http://localhost:3000/reviews');
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -117,7 +116,7 @@ function App() {
 
   const handleLogin = async (userData) => {
     try {
-      const response = await axios.get(`http://localhost:3001/users/${userData.id}`);
+      const response = await axios.get(`http://localhost:3000/users/${userData.id}`);
       const updatedUser = {
         ...userData,
         reviewCount: response.data.reviewCount || 0
@@ -137,13 +136,13 @@ function App() {
 
   const updateUserReviewCount = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3001/users/${userId}`);
+      const response = await axios.get(`http://localhost:3000/users/${userId}`);
       const updatedUser = {
         ...response.data,
         reviewCount: (response.data.reviewCount || 0) + 1
       };
       
-      await axios.patch(`http://localhost:3001/users/${userId}`, {
+      await axios.patch(`http://localhost:3000/users/${userId}`, {
         reviewCount: updatedUser.reviewCount
       });
 
@@ -169,7 +168,7 @@ function App() {
         <Nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/reviews">All Reviews</NavLink>
-          <NavLink to="/leaderboard">Leaderboard</NavLink>
+          <NavLink to="/car-stats">Car Stats</NavLink>
           {user ? (
             <>
               <NavLink to="/add-review">Add Review</NavLink>
@@ -190,7 +189,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/reviews" element={<Reviews reviews={reviews} />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
           <Route 
             path="/add-review" 
             element={

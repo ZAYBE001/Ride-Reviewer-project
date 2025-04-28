@@ -48,7 +48,7 @@ function Signup({ onLogin }) {
     e.preventDefault();
     try {
       
-      const checkUser = await axios.get(`http://localhost:3001/users?username=${username}`);
+      const checkUser = await axios.get(`http://localhost:3000/users?username=${username}`);
       if (checkUser.data.length > 0) {
         setError('Username already exists');
         return;
@@ -60,7 +60,7 @@ function Signup({ onLogin }) {
         name
       };
 
-      const response = await axios.post('http://localhost:3001/users', newUser);
+      const response = await axios.post('http://localhost:3000/users', newUser);
       onLogin(response.data);
       navigate('/');
     } catch (err) {

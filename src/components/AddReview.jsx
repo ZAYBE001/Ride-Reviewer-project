@@ -165,7 +165,7 @@ function AddReview({ addReview, user, updateReviewCount }) {
         reviewer: user.name
       };
       
-      const response = await axios.post('http://localhost:3001/reviews', reviewWithUser);
+      const response = await axios.post('http://localhost:3000/reviews', reviewWithUser);
       addReview(response.data);
       
       // Update user's review count
