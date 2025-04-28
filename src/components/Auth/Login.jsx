@@ -46,7 +46,8 @@ function Login({ onLogin }) {
     try {
       const response = await axios.post('http://localhost:3000/sessions', {
         username,
-        password
+        passwo
+    
       });
       
       const userResponse = await axios.get(`http://localhost:3000/users?username=${username}`);
@@ -54,7 +55,7 @@ function Login({ onLogin }) {
       
       onLogin(user);
       navigate('/');
-    } catch (err) {
+    } catch {
       setError('Invalid username or password');
     }
   };

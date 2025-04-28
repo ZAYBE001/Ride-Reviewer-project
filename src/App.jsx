@@ -10,6 +10,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 
+
 const AppContainer = styled.div`
   font-family: 'Arial', sans-serif;
   max-width: 1200px;
@@ -157,13 +158,13 @@ function App() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or a proper loading component
+    return <div>Loading...</div>; 
   }
 
   return (
     <Router>
       <AppContainer>
-        <Title>Car Review App</Title>
+        <Title> RideReview App</Title>
         <Subtitle>Share your experiences and see what others think</Subtitle>
         <Nav>
           <NavLink to="/">Home</NavLink>
