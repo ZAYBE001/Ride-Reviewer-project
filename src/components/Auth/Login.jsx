@@ -46,7 +46,7 @@ function Login({ onLogin }) {
     try {
       const response = await axios.post('http://localhost:3000/sessions', {
         username,
-        passwo
+        password
     
       });
       
